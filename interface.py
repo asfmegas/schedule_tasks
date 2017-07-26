@@ -67,13 +67,27 @@ class Interface:
 		if not self.data['command']:
 			self.data['command'] = service['command']
 
-		self.data['time'] = input(' Time ({}): '.format(service['time']))
-		if not self.data['time']:
-			self.data['time'] = service['time']
+		while True:
+			self.data['time'] = input(' Time ({}): '.format(service['time']))
+			if self.data['time'] == '':
+				self.data['time'] = service['time']
+			else:
+				try:
+					self.data['time'] = int(self.data['time'])
+					break
+				except:
+					print(' Digite apenas números inteiros')
 
-		self.data['count'] = input(' Repeat ({}): '.format(service['count']))
-		if not self.data['count']:
-			self.data['count'] = service['count']
+		while True:
+			self.data['count'] = input(' Repeat ({}): '.format(service['count']))
+			if self.data['count'] == '':
+				self.data['count'] = service['count']
+			else:
+				try:
+					self.data['count'] = int(self.data['count'])
+					break
+				except:
+					print(' Digite apenas números inteitos!')
 
 		self.data['state'] = input(' State ({}): '.format(service['state']))
 		if not self.data['state']:
@@ -83,7 +97,18 @@ class Interface:
 
 	def deleteService(self):
 		db = database.Database()
-		name = Interface._getString('Name: ')
+		titles = []
+		for item in db.getDataServiceAll():
+			titles.append(item['name'])
+
+		while True:
+			name = Interface._getString(' Name: ')
+			if name in titles:
+				break
+			else:
+				print('\nEsse comando não existe!')
+				print(titles)
+
 		db.deleteService(name)
 
 	def getListService(self):
@@ -130,9 +155,16 @@ class Interface:
 		db = database.Database()
 		data = db.getDataSetting()
 
-		self.dataSetting['time'] = input('Time ({}): '.format(data['time']))
-		if not self.dataSetting['time']:
-			self.dataSetting['time'] = data['time']
+		while True:
+			self.dataSetting['time'] = input('Time ({}): '.format(data['time']))
+			if not self.dataSetting['time']:
+				self.dataSetting['time'] = data['time']
+			else:
+				try:
+					self.dataSetting['time'] = int(self.dataSetting['time'])
+					break
+				except:
+					print(' Digite um valor inteiro.')
 
 		self.dataSetting['state'] = input('State ({}): '.format(data['state']))
 		if not self.dataSetting['state']:

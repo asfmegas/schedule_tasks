@@ -1,7 +1,7 @@
 {
-  "count": 23,
   "name": "comando1",
-  "command": "ls -l",
-  "time": 1,
-  "state": "running"
+  "count": 10,
+  "state": "stop",
+  "command": "echo \"comando 1 rodando\"",
+  "time": 1
 }

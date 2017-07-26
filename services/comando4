@@ -1,7 +1,0 @@
-{
-  "state": "running",
-  "count": 3,
-  "time": 1,
-  "command": "ls -l",
-  "name": "comando4"
-}

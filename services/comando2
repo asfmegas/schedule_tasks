@@ -1,7 +1,7 @@
 {
-  "state": "running",
   "name": "comando2",
-  "time": "10",
-  "command": "ls -aF",
-  "count": "20"
+  "count": 10,
+  "state": "stop",
+  "command": "echo \"novas ordens\"",
+  "time": 1
 }
