@@ -1,0 +1,7 @@
+{
+  "name": "comando3",
+  "time": "10",
+  "count": "30",
+  "state": "running",
+  "command": "ls -mF"
+}
