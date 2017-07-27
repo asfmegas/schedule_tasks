@@ -15,24 +15,20 @@ def main():
 		setting = db.getDataSetting()
 		for s in db.getDataServiceAll():
 			# remover da lista os serviços que estiverem parados
-			print('antes: ', list_services)
+			# print('antes: ', list_services) # Apenas debug
 			if s['state'] == 'stop':
 				if s['name'] in list_services:
 					list_services.remove(s['name'])
 				continue
-			print('depois:', list_services)
 
 			if s['name'] not in list_services:
 				list_services.append(s['name'])
 				thread.start_new_thread(Service, (db.getDataService(s['name']),))
-				# thread.start_new_thread(Service, ('running',))
+			# print('depois:', list_services) # apenas debug
 
 		if setting['state'] == 'stop':
 			break
 		time.sleep(setting['time'])
-
-	# print('saiu!!!')
-
 
 if __name__ == '__main__':
 	main()

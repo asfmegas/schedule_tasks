@@ -20,9 +20,13 @@ class Service:
 			if serv['state'] == 'stop':
 				break
 
-			# os.system(serv['command'])
+			os.system(serv['command'])
 
-			count += 1
-			if count == serv['count']:
-				break
-			time.sleep(10 * serv['time'])
+			if serv['count'] > -1:
+				count += 1
+				if count == serv['count']:
+					serv['state'] = 'stop'
+					db.saveService(serv)
+					break
+
+			time.sleep(60 * serv['time'])

@@ -1,7 +1,7 @@
 {
-  "name": "comando1",
-  "count": 10,
+  "count": -1,
   "state": "stop",
-  "command": "echo \"comando 1 rodando\"",
-  "time": 1
+  "time": 1,
+  "name": "comando1",
+  "command": "echo \"comando 1 rodando\""
 }
