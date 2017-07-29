@@ -1,0 +1,8 @@
+{
+  "time": 120,
+  "state": "running",
+  "command": "gal -m gif doc mp4 &>/dev/null",
+  "name": "gal_master_02",
+  "count": -1,
+  "notice": "yes"
+}

@@ -1,4 +1,14 @@
 __author__ = 'alex.facanha18@gmail.com <asfmegas.github.io>'
+"""
+Interface para gerênciar os arquivos
+
+É através da Interface que são gerenciados os serviços criados. Com ela
+é possível criar novos serviços, alterá-los ou removê-los, determinar 
+suas duraçõesem tempo e quantidade de vezes executados e interromper um 
+determinado serviço. Também é possível realizar alterações nas configura-
+ções padrão.
+
+"""
 
 import os, json
 import database
@@ -10,6 +20,7 @@ class Interface:
 		self.time = 0
 		self.count = 0
 		self.state = ''
+		self.notice = ''
 		self.data = {}
 		self.dataSetting = {}
 
@@ -21,20 +32,22 @@ class Interface:
 			if option in [1, 2, 3, 4, 5, 6]:
 				break
 			else:
-				print('Valor inválido!')
+				print(' Valor inválido!')
 		print()
 		return option
 
 	def newService(self):
 		self.name = Interface._getString('Name...: ')
 		self.command = Interface._getString('Command: ')
+		self.notice = Interface._getString('Notice.: ')
 		self.time = Interface._getInt('Time...: ')
 		self.count = Interface._getInt('Repeat.: ')
 		self.state = Interface._getString('State..: ')
 
 	def save(self):
-		self.data['name'] = self.name
+		self.data['name'] = self._normalizeText(self.name)
 		self.data['command'] = self.command
+		self.data['notice'] = self.notice # yes | no
 		self.data['time'] = self.time
 		self.data['count'] = self.count
 		self.data['state'] = self.state # stop | running
@@ -43,16 +56,14 @@ class Interface:
 
 	def updateService(self):
 		db = database.Database()
-		titles = []
-		for item in db.getDataServiceAll():
-			titles.append(item['name'])
+		titles = self.getTitles()
 
 		while True:
-			name = Interface._getString(' Name: ')
+			name = self._normalizeText(Interface._getString(' Name: '))
 			if name in titles:
 				break
 			else:
-				print('\nEsse comando não existe!')
+				print('\n Esse comando não existe!')
 				print(titles)
 
 		service = db.getDataService(name)
@@ -62,15 +73,22 @@ class Interface:
 		self.data['name'] = input(' Name ({}): '.format(service['name']))
 		if not self.data['name']:
 			self.data['name'] = service['name']
+		else:
+			self.data['name'] = self._normalizeText(self.data['name'])
 
 		self.data['command'] = input(' Command ({}): '.format(service['command']))
 		if not self.data['command']:
 			self.data['command'] = service['command']
 
+		self.data['notice'] = input(' Notice ({}): '.format(service['notice']))
+		if not self.data['notice']:
+			self.data['notice'] = service['notice']
+
 		while True:
 			self.data['time'] = input(' Time ({}): '.format(service['time']))
-			if self.data['time'] == '':
+			if not self.data['time']:
 				self.data['time'] = service['time']
+				break
 			else:
 				try:
 					self.data['time'] = int(self.data['time'])
@@ -80,8 +98,9 @@ class Interface:
 
 		while True:
 			self.data['count'] = input(' Repeat ({}): '.format(service['count']))
-			if self.data['count'] == '':
+			if not self.data['count']:
 				self.data['count'] = service['count']
+				break
 			else:
 				try:
 					self.data['count'] = int(self.data['count'])
@@ -97,16 +116,14 @@ class Interface:
 
 	def deleteService(self):
 		db = database.Database()
-		titles = []
-		for item in db.getDataServiceAll():
-			titles.append(item['name'])
+		titles = self.getTitles()
 
 		while True:
-			name = Interface._getString(' Name: ')
+			name = self._normalizeText(Interface._getString(' Name: '))
 			if name in titles:
 				break
 			else:
-				print('\nEsse comando não existe!')
+				print('\n Esse comando não existe!')
 				print(titles)
 
 		db.deleteService(name)
@@ -118,7 +135,7 @@ class Interface:
 		print()
 		count = 1
 		for item in db.getDataServiceAll():
-			print(' {}. Name: {}; State: {}; Time: {}; Loop: {}'.format(count, item['name'], item['state'], item['time'], item['count']))
+			print(' {}. Name: {}; State: {}; Time: {}; Loop: {}; Notice: {}'.format(count, item['name'], item['state'], item['time'], item['count'], item['notice']))
 			print('    Command: {}'.format(item['command']))
 			print()
 			count += 1
@@ -137,7 +154,7 @@ class Interface:
 			if to_return:
 				break
 			else:
-				print('Digite o "{}"'.format(label))
+				print(' Digite o "{}"'.format(label))
 		return to_return
 
 	def _getInt(label):
@@ -146,19 +163,31 @@ class Interface:
 			try:
 				number = int(input(label))
 			except:
-				print('Valor incorreto!')
+				print(' Valor incorreto!')
 			else:
 				break
 		return number
 
+	def _normalizeText(self, text):
+		new_text = []
+		for i in list(text):
+			if i != '\n':
+				if i == ' ':
+					new_text.append('_')
+				else:
+					new_text.append(i)
+		text = ''.join(new_text)
+		return text
+
 	def setting(self):
 		db = database.Database()
 		data = db.getDataSetting()
-
+		os.system('clear')
 		while True:
 			self.dataSetting['time'] = input('Time ({}): '.format(data['time']))
 			if not self.dataSetting['time']:
 				self.dataSetting['time'] = data['time']
+				break
 			else:
 				try:
 					self.dataSetting['time'] = int(self.dataSetting['time'])

@@ -1,6 +1,10 @@
 __author__ = 'alex.facanha18@gmail.com <asfmegas.github.io>'
 
+import os
+
 from interface import Interface
+
+os.chdir('/home/asfmint/mypy/schedule_tasks')
 
 while True:
 	i = Interface()

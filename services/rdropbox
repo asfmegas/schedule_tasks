@@ -1,7 +1,8 @@
 {
-  "count": -1,
   "state": "running",
-  "time": 30,
+  "time": 120,
+  "command": "rdropbox --upload-not-confirm",
+  "notice": "yes",
   "name": "rdropbox",
-  "command": "rdropbox --upload-not-confirm"
+  "count": -1
 }

@@ -1,7 +1,0 @@
-{
-  "command": "rdropbox -l",
-  "count": 5,
-  "time": 2,
-  "name": "comando2",
-  "state": "stop"
-}

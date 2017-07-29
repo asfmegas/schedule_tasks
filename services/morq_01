@@ -1,0 +1,8 @@
+{
+  "time": 60,
+  "state": "running",
+  "command": "morq --exec &>/dev/null",
+  "name": "morq_01",
+  "count": -1,
+  "notice": "yes"
+}

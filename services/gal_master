@@ -1,0 +1,8 @@
+{
+  "time": 60,
+  "state": "running",
+  "notice": "yes",
+  "name": "gal_master",
+  "command": "gal -m jpg png pdf &>/dev/null",
+  "count": -1
+}

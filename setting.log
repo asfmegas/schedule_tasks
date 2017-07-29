@@ -1,0 +1,20 @@
+<<main:begin>>; 32258; running; 29/07/2017-13:40:49
+<<main:service:running>>; service; gal_master; running; 29/07/2017-13:40:49
+<<main:service:running>>; service; morq_01; running; 29/07/2017-13:40:49
+<<main:service:stopped>>; service; rdropbox; stop; 29/07/2017-13:40:49
+<<main:service:running>>; service; gal_master_02; running; 29/07/2017-13:40:49
+<<main:service:running>>; service; comando1; running; 29/07/2017-13:40:49
+<<service:running>>; morq_01; running; -1; 60; 29/07/2017-13:40:49
+<<service:running>>; gal_master; running; -1; 60; 29/07/2017-13:40:49
+<<service:running>>; comando1; running; 5; 1; 29/07/2017-13:40:49
+<<service:running>>; gal_master_02; running; -1; 120; 29/07/2017-13:40:49
+<<main:service:running>>; service; rdropbox; running; 29/07/2017-13:41:34
+<<service:running>>; rdropbox; running; -1; 120; 29/07/2017-13:41:35
+<<service:running>>; comando1; running; 5; 1; 29/07/2017-13:41:49
+<<service:running>>; comando1; running; 5; 1; 29/07/2017-13:42:49
+<<service:running>>; comando1; running; 5; 1; 29/07/2017-13:43:50
+<<service:running>>; comando1; running; 5; 1; 29/07/2017-13:44:50
+<<main:service:stopped>>; service; comando1; stop; 29/07/2017-13:44:51
+<<main:service:running>>; service; comando1; running; 29/07/2017-13:45:46
+<<service:running>>; comando1; running; 2; 1; 29/07/2017-13:45:46
+<<service:running>>; comando1; running; 2; 1; 29/07/2017-13:46:47

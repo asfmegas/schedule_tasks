@@ -2,6 +2,7 @@ __author__ = 'alex.facanha18@gmail.com <asfmegas.github.io>'
 
 import json, os
 from string import Template
+from timeit import time
 
 class Database:
 	# Serviço
@@ -11,7 +12,7 @@ class Database:
 			if dir == './services':
 				services = file
 		for serv in services:
-			name = 'services/{}'.format(serv)
+			name = os.path.join('services', serv)
 			try:
 				with open(name, 'r') as file:
 					file_json = json.load(file)
@@ -22,7 +23,7 @@ class Database:
 		return data_services
 
 	def getDataService(self, name):
-		name_service = 'services/{}'.format(name)
+		name_service = os.path.join('services', name)
 		file_json = {}
 		try:
 			with open(name_service, 'r') as file:
@@ -37,7 +38,7 @@ class Database:
 			return False
 
 	def saveService(self, data):
-		name = 'services/{}'.format(data['name'])
+		name = os.path.join('services', data['name'])
 		file_json = json.dumps(data, indent=2, sort_keys=False)
 		try:
 			with open(name, 'w') as file:
@@ -49,7 +50,7 @@ class Database:
 			print('Tipo do erro:', type(erro))
 
 	def deleteService(self, name):
-		action = 'rm services/{}'.format(name)
+		action = ''.join(['rm ', 'services/', name])
 		os.system(action)
 
 	# Config
@@ -72,5 +73,14 @@ class Database:
 		except Exception as erro:
 			print('Erro ao salvar config:', erro)
 			print('Tipo do erro:', type(erro))
+
+	# Logging
+	def saveLog(self, data):
+		new_data = '; '.join(data)
+		try:
+			with open('setting.log', 'a') as file:
+				file.write(new_data+'\n')
+		except Exception as erro:
+			print('Tipo do erro: ', type(erro))
 
 
