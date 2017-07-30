@@ -25,9 +25,9 @@ os.chdir('/home/asfmint/mypy/schedule_tasks')
 def main():
 	db = Database()
 	pid = os.getpid()
-	db.saveLog(['<<main:begin>>', str(pid), 'running', str(time.strftime('%d/%m/%Y-%H:%M:%S'))])
+	db.saveLog(['<<main:begin>>', str(pid), 'running', str(time.strftime('%d/%m/%Y-%H:%M:%S')), '<<main:begin>>'])
+	os.system('notify-send -t 8000 -i /home/asfmint/mypy/schedule_tasks/img/logo_info.png "Schedule Tasks" "Agende suas tarefas e torne seu trabalho mas fácil."')
 	count = 0
-
 
 	while True:
 		setting = db.getDataSetting()
@@ -38,21 +38,30 @@ def main():
 		for serv in db.getDataServiceAll():
 			# remover da lista os serviços que estiverem parados
 			if serv['state'] == 'stop':
+				# verifica se o serviço não está na lista para realizar um registro
 				if serv['name'] not in list_service_stop:
+					# registro
 					db.saveLog(['<<main:service:stopped>>', 'service', serv['name'], 'stop', str(time.strftime('%d/%m/%Y-%H:%M:%S'))])
-				list_service_stop.append(serv['name'])
-
+					list_service_stop.append(serv['name']) # adiciona o serviço com status de stop a lista de serviços parados
+					
+				# db.saveLog(['debug'] + list_service_stop)
+				# verifica se o serviço está na lista
 				if serv['name'] in list_services:
+					# remove da lista de serviços que serão iniciados
 					list_services.remove(serv['name'])
 				continue
 
+			# verifica se o serviço está na lista para ser iniciado
 			if serv['name'] not in list_services:
-				db.saveLog(['<<main:service:running>>', 'service', serv['name'], 'running', str(time.strftime('%d/%m/%Y-%H:%M:%S'))])
-				list_services.append(serv['name'])
+				# registro
+				db.saveLog(['<<main:service:start>>', 'service', serv['name'], 'start', str(time.strftime('%d/%m/%Y-%H:%M:%S'))])
+				list_services.append(serv['name']) # adiciona serviço na lista
 
+				# verifica se o serviço está na lista de serviços parados
 				if serv['name'] in list_service_stop:
-					list_service_stop.remove(serv['name'])
-					
+					list_service_stop.remove(serv['name']) # remove serviço da lista
+				
+				# cria uma thread com um novo serviço
 				thread.start_new_thread(Service, (db.getDataService(serv['name']),))
 
 		time.sleep(abs(setting['time']))
