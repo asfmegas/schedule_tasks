@@ -1,8 +1,0 @@
-{
-  "time": 1,
-  "count": 2,
-  "command": "echo \"alguma coisa\"",
-  "name": "comando1",
-  "state": "stop",
-  "notice": "yes"
-}

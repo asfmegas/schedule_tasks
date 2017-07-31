@@ -12,6 +12,7 @@ determinado serviço. Também é possível realizar alterações nas configura-
 
 import os, json
 import database
+from constants import *
 
 class Interface:
 	def __init__(self):
@@ -21,14 +22,21 @@ class Interface:
 		self.count = 0
 		self.state = ''
 		self.notice = ''
+		self.mode = ''
+		self.minute = 1
+		self.hour = 1
+		self.day = 1
+		self.month = 1
 		self.data = {}
 		self.dataSetting = {}
 
 	def options(self):
+		# os.system('clear')
 		print()
 		print(' 1 - New service\n 2 - Change service\n 3 - Delete service\n 4 - List services\n 5 - Setting\n 6 - Sair')
 		while True:
-			option = Interface._getInt(' Option: ')
+			print('-' * 30)
+			option = Interface._getInt(' Option: ', 0)
 			if option in [1, 2, 3, 4, 5, 6]:
 				break
 			else:
@@ -37,12 +45,33 @@ class Interface:
 		return option
 
 	def newService(self):
-		self.name = Interface._getString('Name...: ')
-		self.command = Interface._getString('Command: ')
-		self.notice = Interface._getString('Notice.: ')
-		self.time = Interface._getInt('Time...: ')
-		self.count = Interface._getInt('Repeat.: ')
-		self.state = Interface._getString('State..: ')
+		os.system('clear')
+		self.name = Interface._getString(' Name...: ', 0)
+		self.command = Interface._getString(' Command: ', 0)
+		self.notice = Interface._getString(' Notice.: ', 0)
+		self.state = Interface._getString(' State..: ', 0)
+
+		while True:
+			self.mode = Interface._getString(' Mode...: ', 0)
+			if self.mode in ['date', 'repeat']:
+				if self.mode == 'date':
+					self.minute = Interface._getIntDate(' Minute.: ', 'minute', 0)
+					self.hour = Interface._getIntDate(' Hour...: ', 'hour', 0)
+					self.day = Interface._getIntDate(' Day....: ', 'day', 0)
+					self.month = Interface._getIntDate(' Month..: ', 'month', 0)
+					self.time = 0
+					break
+				else:
+					self.minute = 0
+					self.hour = 0
+					self.day = 0
+					self.month = 0
+					self.time = Interface._getInt(' Time...: ', 0)
+					break
+			else:
+				print('Opções válidas: "date" ou "repeat"')
+
+		self.count = Interface._getInt(' Repeat.: ', 0)
 
 	def save(self):
 		self.data['name'] = self._normalizeText(self.name)
@@ -51,26 +80,32 @@ class Interface:
 		self.data['time'] = self.time
 		self.data['count'] = self.count
 		self.data['state'] = self.state # stop | running
+		self.data['mode'] = self.mode # date | repeat
+		self.data['minute'] = self.minute
+		self.data['hour'] = self.hour
+		self.data['day'] = self.day
+		self.data['month'] = self.month
+
 		db = database.Database()
 		db.saveService(self.data)
 
 	def updateService(self):
 		db = database.Database()
 		titles = self.getTitles()
-
+		print('-' * 30)
 		while True:
-			name = self._normalizeText(Interface._getString(' Name: '))
+			name = self._normalizeText(Interface._getString(' Name: ', 0))
 			if name in titles:
 				break
 			else:
-				print('\n Esse comando não existe!')
+				print('\n Esse serviço não existe!')
 				print(titles)
 
 		service = db.getDataService(name)
 		os.system('clear')
 
 		print()
-		self.data['name'] = input(' Name ({}): '.format(service['name']))
+		self.data['name'] = input(' Name    ({}): '.format(service['name']))
 		if not self.data['name']:
 			self.data['name'] = service['name']
 		else:
@@ -80,37 +115,56 @@ class Interface:
 		if not self.data['command']:
 			self.data['command'] = service['command']
 
-		self.data['notice'] = input(' Notice ({}): '.format(service['notice']))
+		self.data['notice'] = input(' Notice  ({}): '.format(service['notice']))
 		if not self.data['notice']:
 			self.data['notice'] = service['notice']
 
-		while True:
-			self.data['time'] = input(' Time ({}): '.format(service['time']))
-			if not self.data['time']:
-				self.data['time'] = service['time']
-				break
-			else:
-				try:
-					self.data['time'] = int(self.data['time'])
-					break
-				except:
-					print(' Digite apenas números inteiros')
-
-		while True:
-			self.data['count'] = input(' Repeat ({}): '.format(service['count']))
-			if not self.data['count']:
-				self.data['count'] = service['count']
-				break
-			else:
-				try:
-					self.data['count'] = int(self.data['count'])
-					break
-				except:
-					print(' Digite apenas números inteitos!')
-
-		self.data['state'] = input(' State ({}): '.format(service['state']))
+		self.data['state'] = input(' State   ({}): '.format(service['state']))
 		if not self.data['state']:
 			self.data['state'] = service['state']
+
+		while True:
+			self.data['mode'] = Interface._getString(' Mode    ({}): '.format(service['mode']), 1)
+			if not self.data['mode']:
+				self.data['mode'] = service['mode']
+
+			if self.data['mode'] in ['date', 'repeat']:
+				if self.data['mode'] == 'date':
+
+					self.data['minute'] = Interface._getIntDate(' Minute  ({}): '.format(service['minute']), 'minute', 1)
+					if not self.data['minute'] and self.data['minute'] != 0:
+						self.data['minute'] = service['minute']
+
+					self.data['hour'] = Interface._getIntDate(' Hour    ({}): '.format(service['hour']), 'hour', 1)
+					if not self.data['hour'] and self.data['hour'] != 0:
+						self.data['hour'] = service['hour']
+
+					self.data['day'] = Interface._getIntDate(' Day     ({}): '.format(service['day']), 'day', 1)
+					if not self.data['day'] and self.data['day'] != 0:
+						self.data['day'] = service['day']
+
+					self.data['month'] = Interface._getIntDate(' Month   ({}): '.format(service['month']), 'month', 1)
+					if not self.data['month'] and self.data['month'] != 0:
+						self.data['month'] = service['month']
+
+					self.data['time'] = 0
+					break
+				else:
+					self.data['minute'] = 0
+					self.data['hour'] = 0
+					self.data['day'] = 0
+					self.data['month'] = 0
+
+					self.data['time'] = Interface._getInt(' Time    ({}): '.format(service['time']), 1)
+					if not self.data['time'] and self.data['time'] != 0:
+						self.data['time'] = service['time']
+					break
+			else:
+				print('Valores válidos: "date" ou "repeat"')
+
+		self.data['count'] = Interface._getInt(' Repeat  ({}): '.format(service['count']), 1)
+		if not self.data['count'] and self.data['count'] != 0:
+			self.data['count'] = service['count']
 
 		db.saveService(self.data)
 
@@ -119,11 +173,11 @@ class Interface:
 		titles = self.getTitles()
 
 		while True:
-			name = self._normalizeText(Interface._getString(' Name: '))
+			name = self._normalizeText(Interface._getString(' Name: ', 0))
 			if name in titles:
 				break
 			else:
-				print('\n Esse comando não existe!')
+				print('\n Esse serviço não existe!')
 				print(titles)
 
 		db.deleteService(name)
@@ -131,14 +185,24 @@ class Interface:
 	def getListService(self):
 		db = database.Database()
 		os.system('clear')
-		print('\n\tLista de comandos criados:')
+		print('\n\tLista de serviços criados:')
 		print()
+		print(' No Name                State   Time Repeat Notice Mode    Appointment   Command')
+		print('-----------------------------------------------------------------------------------------------')
 		count = 1
 		for item in db.getDataServiceAll():
-			print(' {}. Name: {}; State: {}; Time: {}; Loop: {}; Notice: {}'.format(count, item['name'], item['state'], item['time'], item['count'], item['notice']))
-			print('    Command: {}'.format(item['command']))
-			print()
+			app = str(item['hour'])+':'+str(item['minute'])+'-'+str(item['day'])+'/'+str(item['month'])
+			print(' {cnt}. {name:19} {state:7} {tm:6} {repeat:4} {notice:6} {mode:8} {appoint:12} {cmd}'.format(cnt=count,
+																										name=item['name'],
+																										state=item['state'],
+																										tm=str(item['time']),
+																										repeat=str(item['count']),
+																										notice=item['notice'],
+																										mode=item['mode'],
+																										appoint=app,
+																										cmd=item['command']))
 			count += 1
+		print('-----------------------------------------------------------------------------------------------')
 
 	def getTitles(self):
 		db = database.Database()
@@ -147,25 +211,50 @@ class Interface:
 			titles.append(service['name'])
 		return titles
 
-	def _getString(label):
+	def _getString(label, flag):
 		to_return = ''
 		while True:
 			to_return = input(label)
-			if to_return:
-				break
+			if to_return or flag == 1: break
 			else:
 				print(' Digite o "{}"'.format(label))
 		return to_return
 
-	def _getInt(label):
+	def _getInt(label, flag):
 		number = 0
 		while True:
 			try:
-				number = int(input(label))
+				number = input(label)
+				if not number:
+					if flag == 1:
+						break
+				number = int(number)
 			except:
 				print(' Valor incorreto!')
 			else:
 				break
+		return number
+
+	def _getIntDate(label, attr, flag):
+		number = 0
+		while True:
+			if attr == 'hour': value = HOUR
+			elif attr == 'minute': value = MINUTE
+			elif attr == 'day': value = DAY
+			else: value = MONTH
+			options = list(range(0, value + 1))
+			try:
+				number = input(label)
+				if not number:
+					if flag == 1:
+						break
+				number = int(number)
+				if number not in options:
+					print('Apenas valores neste intervalo: 0-{}.'.format(value))
+					continue
+				break
+			except ValueError:
+				print('Apenas números inteiros', type(erro))
 		return number
 
 	def _normalizeText(self, text):

@@ -14,7 +14,7 @@ while True:
 		i.save()
 	elif option == 2:
 		count = 1
-		print('\n Comandos:')
+		print('\n Lista de serviços:')
 		for title in i.getTitles():
 			print(' {}. {}'.format(count, title))
 			count += 1

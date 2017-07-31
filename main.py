@@ -1,4 +1,5 @@
 __author__ = 'alex.facanha18@gmail.com <asfmegas.github.io>'
+
 """
 Autor: Alexsandro Façanha
 Ano: 2017

@@ -1,8 +1,13 @@
 {
-  "state": "running",
+  "state": "stop",
   "command": "gal -m jpg png pdf",
   "count": -1,
   "notice": "yes",
   "name": "gal_master",
-  "time": 60
+  "time": 60,
+  "day": 0,
+  "hour": 0,
+  "minute": 0,
+  "month": 0,
+  "mode": "repeat"
 }

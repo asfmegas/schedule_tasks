@@ -6,5 +6,8 @@ PATH_INTERFACE = '$HOME/mypy/schedule_tasks'
 PATH_IMAGE = '$HOME/mypy/schedule_tasks/img'
 PATH_SERVICE = '$HOME/mypy/schedule_tasks/services'
 
-# Configuração
+# Configuração de tempo
 MINUTE = 60
+HOUR = 60
+DAY = 31
+MONTH = 12

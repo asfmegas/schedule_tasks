@@ -1,8 +1,13 @@
 {
   "time": 120,
-  "state": "running",
+  "state": "stop",
   "command": "gal -m gif doc mp4 &>/dev/null",
   "name": "gal_master_02",
   "count": -1,
-  "notice": "no"
+  "notice": "no",
+  "day": 0,
+  "hour": 0,
+  "minute": 0,
+  "month": 0,
+  "mode": "repeat"
 }
