@@ -23,19 +23,36 @@ list_services = []
 list_service_stop = []
 os.chdir('/home/asfmint/mypy/schedule_tasks')
 
+def checkStart(old, new, db):
+	# restart os serviços em estado de espera "wait"
+	if old != new:
+		for serv in db.getDataServiceAll():
+			if serv['state'] == 'wait':
+				serv['state'] = 'running'
+				list_services.remove(serv['name'])
+				db.saveService(serv)
+		old = new.copy()
+
 def main():
 	db = Database()
 	pid = os.getpid()
+	# guarda a data de partida
+	date_started = [int(i) for i in time.strftime('%d %m').split()]
+	count = 0
+	
 	db.saveLog(['<<main:begin>>', str(pid), 'running', str(time.strftime('%d/%m/%Y-%H:%M:%S')), '<<main:begin>>'])
 	os.system('notify-send -t 8000 -i /home/asfmint/mypy/schedule_tasks/img/logo_info.png "Schedule Tasks" "Agende suas tarefas e torne seu trabalho mas fácil."')
-	count = 0
 
 	while True:
 		setting = db.getDataSetting()
+		# obtem a data atual
+		date_actual = [int(i) for i in time.strftime('%d %m').split()]
+
 		if setting['state'] == 'stop':
 			db.saveLog(['<<main:stopped>>', str(pid), 'stop', str(time.strftime('%d/%m/%Y-%H:%M:%S'))])
 			break
 
+		checkStart(date_started, date_actual, db)
 		for serv in db.getDataServiceAll():
 			# remover da lista os serviços que estiverem parados
 			if serv['state'] == 'stop':

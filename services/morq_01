@@ -1,13 +1,13 @@
 {
-  "time": 60,
-  "state": "stop",
-  "command": "morq --exec &>/dev/null",
-  "name": "morq_01",
-  "count": -1,
-  "notice": "yes",
-  "day": 0,
   "hour": 0,
+  "count": -1,
+  "name": "morq_01",
+  "state": "running",
   "minute": 0,
   "month": 0,
-  "mode": "repeat"
+  "time": 120,
+  "notice": "yes",
+  "mode": "repeat",
+  "day": 0,
+  "command": "morq --exec"
 }

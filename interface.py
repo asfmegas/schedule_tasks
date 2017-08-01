@@ -31,7 +31,6 @@ class Interface:
 		self.dataSetting = {}
 
 	def options(self):
-		# os.system('clear')
 		print()
 		print(' 1 - New service\n 2 - Change service\n 3 - Delete service\n 4 - List services\n 5 - Setting\n 6 - Sair')
 		while True:
@@ -79,7 +78,7 @@ class Interface:
 		self.data['notice'] = self.notice # yes | no
 		self.data['time'] = self.time
 		self.data['count'] = self.count
-		self.data['state'] = self.state # stop | running
+		self.data['state'] = self.state # stop | running | (wait:only system)
 		self.data['mode'] = self.mode # date | repeat
 		self.data['minute'] = self.minute
 		self.data['hour'] = self.hour

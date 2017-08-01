@@ -16,20 +16,16 @@ class Service:
 
 	def _checkDate(self, data):
 		appointment = [data['hour'], data['minute'], data['day'], data['month']]
-		current_time = []
-		for item in range(4):
-			if appointment[item] > 0:
-				current_time.append(self.date_list[item])
-			else:
-				current_time.append(0)
+		current_time = [(0 if appointment[i] == 0 else self.date_list[i]) for i in range(4)]
 		return current_time == appointment
 
 	def _checkRepeat(self, data, db, count):
-		print('count:', count)
 		to_return = False
 		if data['count'] > -1:
 			if count == data['count']:
 				data['state'] = 'stop' if data['mode'] == 'repeat' else 'wait'
+				if data['state'] == 'wait': 
+					db.saveLog(['<<service:waiting>>', serv['name'], 'stop', str(time.strftime('%d/%m/%Y-%H:%M:%S'))])
 				db.saveService(data)
 				to_return = True
 		return to_return
@@ -38,7 +34,6 @@ class Service:
 		db = Database()
 		v_data = db.getDataService(self.data['name'])
 		v_data['state'] = 'running' if (v_data['mode'] == 'date' and v_data['state'] == 'wait') or v_data['state'] == 'running' else 'stop'
-		print('state:', v_data['state'])
 		db.saveService(v_data)
 		count = 0
 		while True:
@@ -59,8 +54,6 @@ class Service:
 				time.sleep(MINUTE * abs(serv['time']))
 
 			elif serv['mode'] == 'date':
-				print(serv['mode'])
-				# count = 0 if serv['state'] == 'wait' else count
 				if self._checkDate(serv):
 					if serv['notice'] == 'yes':
 						notice = ' '.join(['notify-send -t 6000 -i /home/asfmint/mypy/schedule_tasks/img/logo_info.png', '"Schedule Tasks"', '"Serviço [ {} ] em execução."'.format(serv['name'])])

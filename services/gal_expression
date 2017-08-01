@@ -1,13 +1,13 @@
 {
-  "hour": 20,
+  "hour": 21,
   "count": -1,
-  "name": "gal_master",
+  "name": "gal_expression",
   "state": "running",
-  "minute": 30,
+  "minute": 55,
   "month": 0,
   "time": 0,
   "notice": "yes",
   "mode": "date",
   "day": 0,
-  "command": "gal -m jpg png pdf"
+  "command": "gal --move-list express_english"
 }
