@@ -48,7 +48,12 @@ class Interface:
 		self.name = Interface._getString(' Name...: ', 0)
 		self.command = Interface._getString(' Command: ', 0)
 		self.notice = Interface._getString(' Notice.: ', 0)
-		self.state = Interface._getString(' State..: ', 0)
+		while True:
+			self.state = Interface._getString(' State..: ', 0)
+			if self.data['state'] in ['running', 'stop']:
+				break
+			else:
+				print('Valores possíveis: "running" ou "stop".')
 
 		while True:
 			self.mode = Interface._getString(' Mode...: ', 0)
@@ -118,9 +123,16 @@ class Interface:
 		if not self.data['notice']:
 			self.data['notice'] = service['notice']
 
-		self.data['state'] = input(' State   ({}): '.format(service['state']))
-		if not self.data['state']:
-			self.data['state'] = service['state']
+		while True:
+			self.data['state'] = Interface._getString(' State   ({}): '.format(service['state']), 1)
+			if not self.data['state']:
+				self.data['state'] = service['state']
+				break
+
+			if self.data['state'] in ['running', 'stop']:
+				break
+			else:
+				print('Valores possíveis: "running" ou "stop".')
 
 		while True:
 			self.data['mode'] = Interface._getString(' Mode    ({}): '.format(service['mode']), 1)
@@ -183,6 +195,7 @@ class Interface:
 
 	def getListService(self):
 		db = database.Database()
+		setting = db.getDataSetting()
 		os.system('clear')
 		print('\n\tLista de serviços criados:')
 		print()
@@ -202,6 +215,7 @@ class Interface:
 																										cmd=item['command']))
 			count += 1
 		print('-----------------------------------------------------------------------------------------------')
+		print('\tSetting: time({}) state({})'.format(setting['time'], setting['state']))
 
 	def getTitles(self):
 		db = database.Database()
@@ -214,7 +228,8 @@ class Interface:
 		to_return = ''
 		while True:
 			to_return = input(label)
-			if to_return or flag == 1: break
+			if to_return: break
+			if not to_return and flag == 1: break
 			else:
 				print(' Digite o "{}"'.format(label))
 		return to_return
