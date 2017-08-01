@@ -2,8 +2,6 @@ __author__ = 'alex.facanha18@gmail.com <asfmegas.github.io>'
 
 import os
 from timeit import time
-import pprint, pdb
-debug = pprint.pprint
 
 from database import Database
 from constants import *
@@ -31,6 +29,11 @@ class Service:
 				db.saveService(data)
 				to_return = True
 		return to_return
+
+	def _notification(self, status, serv):
+		if status == 'yes':
+			notice = ' '.join(['notify-send -t 6000 -i /home/asfmint/mypy/schedule_tasks/img/logo_info.png', '"Schedule Tasks"', '"Serviço [ {} ] em execução."'.format(serv)])
+			os.system(notice)
 				
 	def _main(self):
 		db = Database()
@@ -47,9 +50,7 @@ class Service:
 				break
 			
 			if serv['mode'] == 'repeat':
-				if serv['notice'] == 'yes':
-					notice = ' '.join(['notify-send -t 6000 -i /home/asfmint/mypy/schedule_tasks/img/logo_info.png', '"Schedule Tasks"', '"Serviço [ {} ] em execução."'.format(serv['name'])])
-					os.system(notice)
+				self._notification(serv['notice'], serv['name'])
 				os.system(serv['command'])
 				count += 1
 				db.saveLog(['<<service:executed>>', serv['name'], serv['mode'], 'running', str(serv['count']), str(serv['time']), str(time.strftime('%d/%m/%Y-%H:%M:%S'))])
@@ -58,9 +59,7 @@ class Service:
 
 			elif serv['mode'] == 'date':
 				if self._checkDate(serv):
-					if serv['notice'] == 'yes':
-						notice = ' '.join(['notify-send -t 6000 -i /home/asfmint/mypy/schedule_tasks/img/logo_info.png', '"Schedule Tasks"', '"Serviço [ {} ] em execução."'.format(serv['name'])])
-						os.system(notice)
+					self._notification(serv['notice'], serv['name'])
 					os.system(serv['command'])
 					if serv['count'] > 0: count += 1
 					db.saveLog(['<<service:executed:command>>', serv['name'], serv['mode'], serv['state'], str(serv['count']), str(time.strftime('%d/%m/%Y-%H:%M:%S'))])

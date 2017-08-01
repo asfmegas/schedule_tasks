@@ -39,3 +39,48 @@ Serviço; comando3; mandando estado de "wait" para "running"
 <<service:executed:command>>; comando2; date; running; 4; 01/08/2017-19:02:15
 <<service:executed:command>>; comando2; date; running; 4; 01/08/2017-19:03:15
 <<service:waiting>>; comando2; waitting; 01/08/2017-19:03:15
+<<main:begin>>; 20969; running; 01/08/2017-19:16:55; <<main:begin>>
+<<main:stopped>>; 20969; stop; 01/08/2017-19:16:55
+<<main:begin>>; 21025; running; 01/08/2017-19:18:19; <<main:begin>>
+<<main:service:stopped>>; service; gal_master; stop; 01/08/2017-19:18:19
+<<main:service:stopped>>; service; morq_01; stop; 01/08/2017-19:18:19
+<<main:service:stopped>>; service; rdropbox; stop; 01/08/2017-19:18:19
+<<main:service:started>>; service; comando2; start; 01/08/2017-19:18:19
+<<main:service:stopped>>; service; gal_master_02; stop; 01/08/2017-19:18:19
+<<main:service:stopped>>; service; comando4; stop; 01/08/2017-19:18:19
+<<main:service:stopped>>; service; gal_expression; stop; 01/08/2017-19:18:19
+<<main:service:started>>; service; comando3; start; 01/08/2017-19:18:19
+<<service:executed:command>>; comando2; date; running; 4; 01/08/2017-19:18:19
+<<main:service:started>>; service; rdropbox; start; 01/08/2017-19:19:16
+<<service:executed>>; rdropbox; repeat; running; -1; 120; 01/08/2017-19:19:16	
+<<service:executed:command>>; comando2; date; running; 4; 01/08/2017-19:19:19
+<<service:executed:command>>; comando2; date; running; 4; 01/08/2017-19:20:19
+<<service:executed:command>>; comando2; date; running; 4; 01/08/2017-19:21:20
+<<service:waiting>>; comando2; waitting; 01/08/2017-19:21:20
+<<main:service:started>>; service; gal_master; start; 01/08/2017-19:22:36
+<<main:service:started>>; service; gal_master_02; start; 01/08/2017-19:23:17
+<<service:executed>>; gal_master_02; repeat; running; -1; 120; 01/08/2017-19:23:17
+<<main:service:started>>; service; gal_expression; start; 01/08/2017-19:23:48
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 01/08/2017-19:23:48
+<<main:service:stopped>>; service; comando3; stop; 01/08/2017-19:24:17
+<<service:stopped>>; comando3; stop; 01/08/2017-19:24:19
+<<main:service:stopped>>; service; comando2; stop; 01/08/2017-19:24:40
+<<main:service:stopped>>; service; rdropbox; stop; 01/08/2017-19:25:01
+<<main:service:started>>; service; rdropbox; start; 01/08/2017-19:25:35
+<<service:executed>>; rdropbox; repeat; running; -1; 60; 01/08/2017-19:25:36
+<<main:service:stopped>>; service; rdropbox; stop; 01/08/2017-19:29:33
+<<main:service:started>>; service; rdropbox; start; 01/08/2017-19:29:44
+<<service:executed>>; rdropbox; repeat; running; -1; 60; 01/08/2017-19:29:45
+<<main:stopped>>; 21025; stop; 01/08/2017-19:49:10
+<<main:begin>>; 21930; running; 01/08/2017-19:49:30; <<main:begin>>
+<<main:service:started>>; service; gal_master; start; 01/08/2017-19:49:30
+<<main:service:stopped>>; service; morq_01; stop; 01/08/2017-19:49:30
+<<main:service:started>>; service; rdropbox; start; 01/08/2017-19:49:30
+<<main:service:stopped>>; service; comando2; stop; 01/08/2017-19:49:30
+<<main:service:started>>; service; gal_master_02; start; 01/08/2017-19:49:30
+<<main:service:stopped>>; service; comando4; stop; 01/08/2017-19:49:30
+<<main:service:started>>; service; gal_expression; start; 01/08/2017-19:49:30
+<<main:service:stopped>>; service; comando3; stop; 01/08/2017-19:49:30
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 01/08/2017-19:49:31
+<<service:executed>>; rdropbox; repeat; running; -1; 60; 01/08/2017-19:49:31
+<<service:executed>>; gal_master_02; repeat; running; -1; 120; 01/08/2017-19:49:31

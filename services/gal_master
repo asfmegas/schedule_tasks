@@ -1,13 +1,13 @@
 {
-  "hour": 20,
-  "count": -1,
-  "name": "gal_master",
-  "state": "stop",
-  "minute": 30,
-  "month": 0,
   "time": 0,
+  "count": -1,
+  "state": "running",
+  "hour": 20,
+  "month": 0,
+  "name": "gal_master",
   "notice": "yes",
+  "command": "gal -m jpg png pdf",
   "mode": "date",
-  "day": 0,
-  "command": "gal -m jpg png pdf"
+  "minute": 30,
+  "day": 0
 }
