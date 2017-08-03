@@ -44,7 +44,7 @@ def main():
 	date_started = [int(i) for i in time.strftime('%d %m').split()]
 	count = 0
 
-	db.saveLog(['<<main:begin>>', str(pid), 'running', str(time.strftime('%d/%m/%Y-%H:%M:%S')), '<<main:begin>>'])
+	db.saveLog(['<<main:begin>>', str(pid), 'running', str(time.strftime('%d/%m/%Y-%H:%M:%S')), '<<main:begin>>', str(pid)])
 	os.system('notify-send -t 8000 -i /home/asfmint/mypy/schedule_tasks/img/logo_info.png "Schedule Tasks" "Agende suas tarefas e torne seu trabalho mas fácil."')
 
 	while True:
@@ -53,7 +53,7 @@ def main():
 		date_actual = [int(i) for i in time.strftime('%d %m').split()]
 
 		if setting['state'] == 'stop':
-			db.saveLog(['<<main:stopped>>', str(pid), 'stop', str(time.strftime('%d/%m/%Y-%H:%M:%S'))])
+			db.saveLog(['<<main:stopped>>', str(pid), 'stop', str(time.strftime('%d/%m/%Y-%H:%M:%S')), str(pid)])
 			break
 
 		if checkStart(date_started, date_actual, db): 
@@ -65,12 +65,12 @@ def main():
 					# apagar aquivo definido como "yes" em "delete"
 					command = 'rm services/' + serv['name']
 					os.system(command)
-					db.saveLog(['<<main:service:deleted>>', 'service', serv['name'], 'stop', str(time.strftime('%d/%m/%Y-%H:%M:%S'))])
+					db.saveLog(['<<main:service:deleted>>', 'service', serv['name'], 'stop', str(time.strftime('%d/%m/%Y-%H:%M:%S')), str(pid)])
 				else:
 					# verifica se o serviço não está na lista para realizar um registro
 					if serv['name'] not in list_service_stop:
 						# registro
-						db.saveLog(['<<main:service:stopped>>', 'service', serv['name'], 'stop', str(time.strftime('%d/%m/%Y-%H:%M:%S'))])
+						db.saveLog(['<<main:service:stopped>>', 'service', serv['name'], 'stop', str(time.strftime('%d/%m/%Y-%H:%M:%S')), str(pid)])
 						list_service_stop.append(serv['name']) # adiciona o serviço com status de stop à lista de serviços parados
 					
 				# verifica se o serviço está na lista
@@ -82,7 +82,7 @@ def main():
 			# verifica se o serviço está na lista para ser iniciado
 			if serv['name'] not in list_services:
 				# registro
-				db.saveLog(['<<main:service:started>>', 'service', serv['name'], 'start', str(time.strftime('%d/%m/%Y-%H:%M:%S'))])
+				db.saveLog(['<<main:service:started>>', 'service', serv['name'], 'start', str(time.strftime('%d/%m/%Y-%H:%M:%S')), str(pid)])
 				list_services.append(serv['name']) # adiciona serviço na lista
 
 				# verifica se o serviço está na lista de serviços parados

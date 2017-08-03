@@ -83,10 +83,10 @@ class Interface:
 	def save(self):
 		self.data['name'] = self._normalizeText(self.name)
 		self.data['command'] = self.command
-		self.data['notice'] = self.notice # yes | no
+		self.data['notice'] = self.notice # yes | notice
 		self.data['time'] = self.time # digit
 		self.data['count'] = self.count # digit
-		self.data['delete'] = self.deleteService # yes | no
+		self.data['delete'] = self.deleteServ # yes | no
 		self.data['state'] = self.state # stop | running | (wait:only system)
 		self.data['mode'] = self.mode # date | repeat
 		self.data['minute'] = self.minute # 0-60
@@ -210,18 +210,19 @@ class Interface:
 		os.system('clear')
 		print('\n\tLista de serviços criados:')
 		print()
-		print(' No  Name                State   Time Repeat Notice Mode    Appointment   Command')
+		print(' No  Name                State   Time Repeat Notice Mode    Del  Appointment   Command')
 		print('-----------------------------------------------------------------------------------------------')
 		count = 1
 		for item in db.getDataServiceAll():
 			app = str(item['hour'])+':'+str(item['minute'])+'-'+str(item['day'])+'/'+str(item['month'])
-			print(' {cnt:2}. {name:19} {state:7} {tm:6} {repeat:4} {notice:6} {mode:8} {appoint:12} {cmd}'.format(cnt=count,
+			print(' {cnt:2}. {name:19} {state:7} {tm:6} {repeat:4} {notice:6} {mode:8} {delete:4} {appoint:12} {cmd}'.format(cnt=count,
 																										name=item['name'],
 																										state=item['state'],
 																										tm=str(item['time']),
 																										repeat=str(item['count']),
 																										notice=item['notice'],
 																										mode=item['mode'],
+																										delete=item['delete'],
 																										appoint=app,
 																										cmd=item['command']))
 			count += 1
@@ -306,19 +307,30 @@ class Interface:
 		data = db.getDataSetting()
 		os.system('clear')
 		while True:
-			self.dataSetting['time'] = input('Time ({}): '.format(data['time']))
-			if not self.dataSetting['time']:
+			number = Interface._getInt(' Time ({}):'.format(data['time']), 1)
+			if not number: 
 				self.dataSetting['time'] = data['time']
 				break
+
+			number = int(number)
+			if number < 1:
+				print(' Valor incorreto!')
+				continue
+
+			self.dataSetting['time'] = str(number)
+			break
+
+		while True:
+			self.dataSetting['state'] = Interface._getString(' State ({}): '.format(data['state']), 1)
+			if not self.dataSetting['state']:
+				self.dataSetting['state'] = data['state']
+				break
 			else:
-				try:
-					self.dataSetting['time'] = int(self.dataSetting['time'])
+				if self.dataSetting['state'] in 'stop running'.split():
 					break
-				except:
-					print(' Digite um valor inteiro.')
+				else:
+					print(' Valor incorreto! (running|stop)')
 
-		self.dataSetting['state'] = input('State ({}): '.format(data['state']))
-		if not self.dataSetting['state']:
-			self.dataSetting['state'] = data['state']
-
-		db.updateSetting(self.dataSetting)
+		confirm = input(' Deseja salvar alterações? (yes|NO): ')
+		if confirm.startswith('yes'):
+			db.updateSetting(self.dataSetting)
