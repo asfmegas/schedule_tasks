@@ -1,13 +1,14 @@
 {
-  "time": 60,
-  "count": -1,
-  "state": "running",
-  "hour": 0,
-  "month": 0,
-  "name": "rdropbox",
+  "delete": "no",
+  "hour": "0",
+  "mode": "repeat",
+  "time": "60",
+  "state": "stop",
+  "minute": "0",
   "notice": "yes",
   "command": "rdropbox --upload-not-confirm",
-  "mode": "repeat",
-  "minute": 0,
-  "day": 0
+  "name": "rdropbox",
+  "day": "0",
+  "month": "0",
+  "count": "-1"
 }

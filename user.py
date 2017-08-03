@@ -9,23 +9,23 @@ os.chdir('/home/asfmint/mypy/schedule_tasks')
 while True:
 	i = Interface()
 	option = i.options()
-	if option == 1:
+	if option == '1':
 		i.newService()
 		i.save()
-	elif option == 2:
+	elif option == '2':
 		count = 1
 		print('\n Lista de serviços:')
 		for title in i.getTitles():
-			print(' {}. {}'.format(count, title))
+			print(' {:3}. {}'.format(count, title))
 			count += 1
 		print()
 		i.updateService()
 		i.save()
-	elif option == 3:
+	elif option == '3':
 		i.deleteService()
-	elif option == 4:
+	elif option == '4':
 		i.getListService()
-	elif option == 5:
+	elif option == '5':
 		i.setting()
-	elif option == 6:
+	elif option == '6':
 		break

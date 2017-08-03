@@ -8,6 +8,6 @@ PATH_SERVICE = '$HOME/mypy/schedule_tasks/services'
 
 # Configuração de tempo
 MINUTE = 60
-HOUR = 60
+HOUR = 24
 DAY = 31
 MONTH = 12

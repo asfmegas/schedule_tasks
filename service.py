@@ -15,14 +15,24 @@ class Service:
 		self.date_list = []
 
 	def _checkDate(self, data):
-		appointment = [data['hour'], data['minute'], data['day'], data['month']]
-		current_time = [(0 if appointment[i] == 0 else self.date_list[i]) for i in range(4)]
-		return current_time == appointment
+		appointment = [[h, m, data['day'], data['month']] for m in data['minute'] for h in data['hour']]
+		current_time = ['0', '0', '0', '0']
+		to_return = False
+		for item in appointment:
+			for i in range(4):
+				if item[i] == '0':
+					current_time[i] = '0'
+				else:
+					current_time[i] = self.date_list[i]
+			if item == current_time: 
+				to_return = True
+				break
+		return to_return
 
 	def _checkRepeat(self, data, db, count):
 		to_return = False
-		if data['count'] > -1:
-			if count == data['count']:
+		if data['count'] > '-1':
+			if str(count) == data['count']:
 				data['state'] = 'stop' if data['mode'] == 'repeat' else 'wait'
 				if data['state'] == 'wait': 
 					db.saveLog(['<<service:waiting>>', data['name'], 'waitting', str(time.strftime('%d/%m/%Y-%H:%M:%S'))])
@@ -44,7 +54,7 @@ class Service:
 
 		while True:
 			serv = db.getDataService(self.data['name'])
-			self.date_list = [int(i) for i in time.strftime('%H %M %d %m').split()]
+			self.date_list = [i for i in time.strftime('%H %M %d %m').split()]
 			if serv['state'] == 'stop':
 				db.saveLog(['<<service:stopped>>', serv['name'], 'stop', str(time.strftime('%d/%m/%Y-%H:%M:%S'))])
 				break
@@ -55,18 +65,18 @@ class Service:
 				count += 1
 				db.saveLog(['<<service:executed>>', serv['name'], serv['mode'], 'running', str(serv['count']), str(serv['time']), str(time.strftime('%d/%m/%Y-%H:%M:%S'))])
 				if self._checkRepeat(serv, db, count): break
-				time.sleep(MINUTE * abs(serv['time']))
+				time.sleep(MINUTE * abs(int(serv['time'])))
 
 			elif serv['mode'] == 'date':
 				if self._checkDate(serv):
 					self._notification(serv['notice'], serv['name'])
 					os.system(serv['command'])
-					if serv['count'] > 0: count += 1
+					if int(serv['count']) > 0: count += 1
 					db.saveLog(['<<service:executed:command>>', serv['name'], serv['mode'], serv['state'], str(serv['count']), str(time.strftime('%d/%m/%Y-%H:%M:%S'))])
 					if self._checkRepeat(serv, db, count): break
 					time.sleep(MINUTE)
 				else:
-					time.sleep(30)
+					time.sleep(MINUTE / 3)
 
 
 

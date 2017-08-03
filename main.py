@@ -8,7 +8,7 @@ Script para agendar tarefas no Linux(Ubuntu e derivados)
 
 Para fins pedagógicos este miniprograma possui o intuito de facilitar a realização de
 tarefas repetitivas através da criação de uma rotina para que uma determinada tarefa seja
-executada diversas vezes em intervalos de tempo pré-programado.
+executada diversas vezes em intervalos de tempo pré-definidos.
 
 """
 
@@ -43,7 +43,7 @@ def main():
 	# guarda a data de partida
 	date_started = [int(i) for i in time.strftime('%d %m').split()]
 	count = 0
-	
+
 	db.saveLog(['<<main:begin>>', str(pid), 'running', str(time.strftime('%d/%m/%Y-%H:%M:%S')), '<<main:begin>>'])
 	os.system('notify-send -t 8000 -i /home/asfmint/mypy/schedule_tasks/img/logo_info.png "Schedule Tasks" "Agende suas tarefas e torne seu trabalho mas fácil."')
 
@@ -61,11 +61,17 @@ def main():
 		for serv in db.getDataServiceAll():
 			# remover da lista os serviços que estiverem parados
 			if serv['state'] == 'stop':
-				# verifica se o serviço não está na lista para realizar um registro
-				if serv['name'] not in list_service_stop:
-					# registro
-					db.saveLog(['<<main:service:stopped>>', 'service', serv['name'], 'stop', str(time.strftime('%d/%m/%Y-%H:%M:%S'))])
-					list_service_stop.append(serv['name']) # adiciona o serviço com status de stop à lista de serviços parados
+				if serv['delete'] == 'yes':
+					# apagar aquivo definido como "yes" em "delete"
+					command = 'rm services/' + serv['name']
+					os.system(command)
+					db.saveLog(['<<main:service:deleted>>', 'service', serv['name'], 'stop', str(time.strftime('%d/%m/%Y-%H:%M:%S'))])
+				else:
+					# verifica se o serviço não está na lista para realizar um registro
+					if serv['name'] not in list_service_stop:
+						# registro
+						db.saveLog(['<<main:service:stopped>>', 'service', serv['name'], 'stop', str(time.strftime('%d/%m/%Y-%H:%M:%S'))])
+						list_service_stop.append(serv['name']) # adiciona o serviço com status de stop à lista de serviços parados
 					
 				# verifica se o serviço está na lista
 				if serv['name'] in list_services:

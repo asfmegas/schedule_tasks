@@ -22,6 +22,7 @@ class Interface:
 		self.count = 0
 		self.state = ''
 		self.notice = ''
+		self.deleteServ = ''
 		self.mode = ''
 		self.minute = 1
 		self.hour = 1
@@ -36,7 +37,7 @@ class Interface:
 		while True:
 			print('-' * 30)
 			option = Interface._getInt(' Option: ', 0)
-			if option in [1, 2, 3, 4, 5, 6]:
+			if option in ['1', '2', '3', '4', '5', '6']:
 				break
 			else:
 				print(' Valor inválido!')
@@ -48,9 +49,10 @@ class Interface:
 		self.name = Interface._getString(' Name...: ', 0)
 		self.command = Interface._getString(' Command: ', 0)
 		self.notice = Interface._getString(' Notice.: ', 0)
+
 		while True:
 			self.state = Interface._getString(' State..: ', 0)
-			if self.data['state'] in ['running', 'stop']:
+			if self.state in 'running stop'.split():
 				break
 			else:
 				print('Valores possíveis: "running" ou "stop".')
@@ -63,32 +65,34 @@ class Interface:
 					self.hour = Interface._getIntDate(' Hour...: ', 'hour', 0)
 					self.day = Interface._getIntDate(' Day....: ', 'day', 0)
 					self.month = Interface._getIntDate(' Month..: ', 'month', 0)
-					self.time = 0
+					self.time = "0"
 					break
 				else:
-					self.minute = 0
-					self.hour = 0
-					self.day = 0
-					self.month = 0
+					self.minute = "0"
+					self.hour = "0"
+					self.day = "0"
+					self.month = "0"
 					self.time = Interface._getInt(' Time...: ', 0)
 					break
 			else:
 				print('Opções válidas: "date" ou "repeat"')
 
 		self.count = Interface._getInt(' Repeat.: ', 0)
+		self.deleteServ = Interface._getString(' Delete.: ', 0)
 
 	def save(self):
 		self.data['name'] = self._normalizeText(self.name)
 		self.data['command'] = self.command
 		self.data['notice'] = self.notice # yes | no
-		self.data['time'] = self.time
-		self.data['count'] = self.count
+		self.data['time'] = self.time # digit
+		self.data['count'] = self.count # digit
+		self.data['delete'] = self.deleteService # yes | no
 		self.data['state'] = self.state # stop | running | (wait:only system)
 		self.data['mode'] = self.mode # date | repeat
-		self.data['minute'] = self.minute
-		self.data['hour'] = self.hour
-		self.data['day'] = self.day
-		self.data['month'] = self.month
+		self.data['minute'] = self.minute # 0-60
+		self.data['hour'] = self.hour # 0-24
+		self.data['day'] = self.day # 0-31
+		self.data['month'] = self.month # 0-12
 
 		db = database.Database()
 		db.saveService(self.data)
@@ -109,17 +113,17 @@ class Interface:
 		os.system('clear')
 
 		print()
-		self.data['name'] = input(' Name    ({}): '.format(service['name']))
+		self.data['name'] = Interface._getString(' Name    ({}): '.format(service['name']), 1)
 		if not self.data['name']:
 			self.data['name'] = service['name']
 		else:
 			self.data['name'] = self._normalizeText(self.data['name'])
 
-		self.data['command'] = input(' Command ({}): '.format(service['command']))
+		self.data['command'] = Interface._getString(' Command ({}): '.format(service['command']), 1)
 		if not self.data['command']:
 			self.data['command'] = service['command']
 
-		self.data['notice'] = input(' Notice  ({}): '.format(service['notice']))
+		self.data['notice'] = Interface._getString(' Notice  ({}): '.format(service['notice']), 1)
 		if not self.data['notice']:
 			self.data['notice'] = service['notice']
 
@@ -128,7 +132,6 @@ class Interface:
 			if not self.data['state']:
 				self.data['state'] = service['state']
 				break
-
 			if self.data['state'] in ['running', 'stop']:
 				break
 			else:
@@ -155,29 +158,35 @@ class Interface:
 						self.data['day'] = service['day']
 
 					self.data['month'] = Interface._getIntDate(' Month   ({}): '.format(service['month']), 'month', 1)
-					if not self.data['month'] and self.data['month'] != 0:
+					if not self.data['month'] and self.data['month'] != "0":
 						self.data['month'] = service['month']
 
-					self.data['time'] = 0
+					self.data['time'] = "0"
 					break
 				else:
-					self.data['minute'] = 0
-					self.data['hour'] = 0
-					self.data['day'] = 0
-					self.data['month'] = 0
+					self.data['minute'] = "0"
+					self.data['hour'] = "0"
+					self.data['day'] = "0"
+					self.data['month'] = "0"
 
 					self.data['time'] = Interface._getInt(' Time    ({}): '.format(service['time']), 1)
-					if not self.data['time'] and self.data['time'] != 0:
+					if not self.data['time'] and self.data['time'] != "0":
 						self.data['time'] = service['time']
 					break
 			else:
 				print('Valores válidos: "date" ou "repeat"')
 
 		self.data['count'] = Interface._getInt(' Repeat  ({}): '.format(service['count']), 1)
-		if not self.data['count'] and self.data['count'] != 0:
+		if not self.data['count'] and self.data['count'] != '0':
 			self.data['count'] = service['count']
 
-		db.saveService(self.data)
+		self.data['delete'] = Interface._getString(' Delete  ({}): '.format(service['delete']), 1)
+		if not self.data['delete']:
+			self.data['delete'] = service['delete']
+
+		confirm = input(' Deseja salvar alterações? (yes|NO): ')
+		if confirm.startswith('yes'):
+			db.saveService(self.data)	
 
 	def deleteService(self):
 		db = database.Database()
@@ -191,7 +200,9 @@ class Interface:
 				print('\n Esse serviço não existe!')
 				print(titles)
 
-		db.deleteService(name)
+		confirm = input(' Deseja apagar o serviço [ {} ]? (yes|NO): '.format(name))
+		if confirm.startswith('yes'):
+			db.deleteService(name)
 
 	def getListService(self):
 		db = database.Database()
@@ -199,12 +210,12 @@ class Interface:
 		os.system('clear')
 		print('\n\tLista de serviços criados:')
 		print()
-		print(' No Name                State   Time Repeat Notice Mode    Appointment   Command')
+		print(' No  Name                State   Time Repeat Notice Mode    Appointment   Command')
 		print('-----------------------------------------------------------------------------------------------')
 		count = 1
 		for item in db.getDataServiceAll():
 			app = str(item['hour'])+':'+str(item['minute'])+'-'+str(item['day'])+'/'+str(item['month'])
-			print(' {cnt}. {name:19} {state:7} {tm:6} {repeat:4} {notice:6} {mode:8} {appoint:12} {cmd}'.format(cnt=count,
+			print(' {cnt:2}. {name:19} {state:7} {tm:6} {repeat:4} {notice:6} {mode:8} {appoint:12} {cmd}'.format(cnt=count,
 																										name=item['name'],
 																										state=item['state'],
 																										tm=str(item['time']),
@@ -237,39 +248,47 @@ class Interface:
 	def _getInt(label, flag):
 		number = 0
 		while True:
-			try:
-				number = input(label)
-				if not number:
-					if flag == 1:
-						break
-				number = int(number)
-			except:
-				print(' Valor incorreto!')
-			else:
+			number = input(label)
+			if not number and flag == 1:
 				break
+			if number.isdigit() or number == '-1':
+				break
+			else:
+				print(' Valor incorreto!')
 		return number
 
 	def _getIntDate(label, attr, flag):
-		number = 0
+		number = ''
+		list_number = []
+		count = 0
 		while True:
-			if attr == 'hour': value = HOUR
-			elif attr == 'minute': value = MINUTE
-			elif attr == 'day': value = DAY
-			else: value = MONTH
-			options = list(range(0, value + 1))
-			try:
-				number = input(label)
-				if not number:
-					if flag == 1:
-						break
-				number = int(number)
-				if number not in options:
-					print('Apenas valores neste intervalo: 0-{}.'.format(value))
-					continue
-				break
-			except ValueError:
-				print('Apenas números inteiros', type(erro))
-		return number
+			number = input(label)
+			if not number and flag == 1:
+				if Interface._checkValidity(attr, '0'):
+					break
+
+			if not Interface._checkValidity(attr, number):
+				print('Valor incorreto! ({})'.format(number))
+				continue
+
+			for value in number.split(','):
+				if attr == 'day' or attr == 'month':
+					return value
+				else:
+					list_number.append(value)
+			break
+		return list_number
+
+	def _checkValidity(attr, enter):
+		if attr == 'hour': value = HOUR
+		elif attr == 'minute': value = MINUTE
+		elif attr == 'day': value = DAY
+		else: value = MONTH
+		options = [str(i) for i in range(0, value + 1)]
+		for value in enter.split(','):
+			if value not in options:
+				return False
+		return True
 
 	def _normalizeText(self, text):
 		new_text = []
