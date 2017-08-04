@@ -113,22 +113,22 @@ class Interface:
 		os.system('clear')
 
 		print()
-		self.data['name'] = Interface._getString(' Name    ({}): '.format(service['name']), 1)
+		self.data['name'] = Interface._getString(' Name....({}): '.format(service['name']), 1)
 		if not self.data['name']:
 			self.data['name'] = service['name']
 		else:
 			self.data['name'] = self._normalizeText(self.data['name'])
 
-		self.data['command'] = Interface._getString(' Command ({}): '.format(service['command']), 1)
+		self.data['command'] = Interface._getString(' Command.({}): '.format(service['command']), 1)
 		if not self.data['command']:
 			self.data['command'] = service['command']
 
-		self.data['notice'] = Interface._getString(' Notice  ({}): '.format(service['notice']), 1)
+		self.data['notice'] = Interface._getString(' Notice..({}): '.format(service['notice']), 1)
 		if not self.data['notice']:
 			self.data['notice'] = service['notice']
 
 		while True:
-			self.data['state'] = Interface._getString(' State   ({}): '.format(service['state']), 1)
+			self.data['state'] = Interface._getString(' State...({}): '.format(service['state']), 1)
 			if not self.data['state']:
 				self.data['state'] = service['state']
 				break
@@ -138,26 +138,26 @@ class Interface:
 				print('Valores possíveis: "running" ou "stop".')
 
 		while True:
-			self.data['mode'] = Interface._getString(' Mode    ({}): '.format(service['mode']), 1)
+			self.data['mode'] = Interface._getString(' Mode....({}): '.format(service['mode']), 1)
 			if not self.data['mode']:
 				self.data['mode'] = service['mode']
 
 			if self.data['mode'] in ['date', 'repeat']:
 				if self.data['mode'] == 'date':
 
-					self.data['minute'] = Interface._getIntDate(' Minute  ({}): '.format(service['minute']), 'minute', 1)
-					if not self.data['minute'] and self.data['minute'] != 0:
+					self.data['minute'] = Interface._getIntDate(' Minute..({}): '.format(service['minute']), 'minute', 1)
+					if not self.data['minute'] and self.data['minute'] != '0':
 						self.data['minute'] = service['minute']
 
-					self.data['hour'] = Interface._getIntDate(' Hour    ({}): '.format(service['hour']), 'hour', 1)
-					if not self.data['hour'] and self.data['hour'] != 0:
+					self.data['hour'] = Interface._getIntDate(' Hour....({}): '.format(service['hour']), 'hour', 1)
+					if not self.data['hour'] and self.data['hour'] != '0':
 						self.data['hour'] = service['hour']
 
-					self.data['day'] = Interface._getIntDate(' Day     ({}): '.format(service['day']), 'day', 1)
-					if not self.data['day'] and self.data['day'] != 0:
+					self.data['day'] = Interface._getIntDate(' Day.....({}): '.format(service['day']), 'day', 1)
+					if not self.data['day'] and self.data['day'] != '0':
 						self.data['day'] = service['day']
 
-					self.data['month'] = Interface._getIntDate(' Month   ({}): '.format(service['month']), 'month', 1)
+					self.data['month'] = Interface._getIntDate(' Month...({}): '.format(service['month']), 'month', 1)
 					if not self.data['month'] and self.data['month'] != "0":
 						self.data['month'] = service['month']
 
@@ -169,18 +169,18 @@ class Interface:
 					self.data['day'] = "0"
 					self.data['month'] = "0"
 
-					self.data['time'] = Interface._getInt(' Time    ({}): '.format(service['time']), 1)
+					self.data['time'] = Interface._getInt(' Time....({}): '.format(service['time']), 1)
 					if not self.data['time'] and self.data['time'] != "0":
 						self.data['time'] = service['time']
 					break
 			else:
 				print('Valores válidos: "date" ou "repeat"')
 
-		self.data['count'] = Interface._getInt(' Repeat  ({}): '.format(service['count']), 1)
+		self.data['count'] = Interface._getInt(' Repeat..({}): '.format(service['count']), 1)
 		if not self.data['count'] and self.data['count'] != '0':
 			self.data['count'] = service['count']
 
-		self.data['delete'] = Interface._getString(' Delete  ({}): '.format(service['delete']), 1)
+		self.data['delete'] = Interface._getString(' Delete..({}): '.format(service['delete']), 1)
 		if not self.data['delete']:
 			self.data['delete'] = service['delete']
 
@@ -194,15 +194,15 @@ class Interface:
 
 		while True:
 			name = self._normalizeText(Interface._getString(' Name: ', 0))
-			if name in titles:
+			if name in titles or name in 'sair exit quit'.split():
+				if name not in 'sair exit quit'.split():
+					confirm = input(' Deseja apagar o serviço [ {} ]? (yes|NO): '.format(name))
+					if confirm.startswith('yes'):
+						db.deleteService(name)
 				break
 			else:
 				print('\n Esse serviço não existe!')
 				print(titles)
-
-		confirm = input(' Deseja apagar o serviço [ {} ]? (yes|NO): '.format(name))
-		if confirm.startswith('yes'):
-			db.deleteService(name)
 
 	def getListService(self):
 		db = database.Database()
@@ -210,7 +210,7 @@ class Interface:
 		os.system('clear')
 		print('\n\tLista de serviços criados:')
 		print()
-		print(' No  Name                State   Time Repeat Notice Mode    Del  Appointment   Command')
+		print(' No  Name                State  Time Repeat Notice  Mode    Del  Appointment   Command')
 		print('-----------------------------------------------------------------------------------------------')
 		count = 1
 		for item in db.getDataServiceAll():
@@ -227,7 +227,7 @@ class Interface:
 																										cmd=item['command']))
 			count += 1
 		print('-----------------------------------------------------------------------------------------------')
-		print('\tSetting: time({}) state({})'.format(setting['time'], setting['state']))
+		print('\tSetting: time({}) state({}) PID({})'.format(setting['time'], setting['state'], setting['PID']))
 
 	def getTitles(self):
 		db = database.Database()
@@ -241,9 +241,11 @@ class Interface:
 		while True:
 			to_return = input(label)
 			if to_return: break
-			if not to_return and flag == 1: break
+			if not to_return and flag == 1: 
+				break
 			else:
-				print(' Digite o "{}"'.format(label))
+				lbl = ''.join([i for i in label if i.isalpha()])
+				print(' Digite um valor para "{}".'.format(lbl.lower()))
 		return to_return
 
 	def _getInt(label, flag):
@@ -269,7 +271,7 @@ class Interface:
 					break
 
 			if not Interface._checkValidity(attr, number):
-				print('Valor incorreto! ({})'.format(number))
+				print(' Valor incorreto! ({})'.format(number))
 				continue
 
 			for value in number.split(','):
@@ -330,6 +332,8 @@ class Interface:
 					break
 				else:
 					print(' Valor incorreto! (running|stop)')
+
+		self.dataSetting['PID'] = data['PID']
 
 		confirm = input(' Deseja salvar alterações? (yes|NO): ')
 		if confirm.startswith('yes'):

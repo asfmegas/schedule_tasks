@@ -40,6 +40,9 @@ def checkStart(old, new, db):
 def main():
 	db = Database()
 	pid = os.getpid()
+	dataSetting = db.getDataSetting()
+	dataSetting['PID'] = str(pid)
+	db.updateSetting(dataSetting)
 	# guarda a data de partida
 	date_started = [int(i) for i in time.strftime('%d %m').split()]
 	count = 0
@@ -79,6 +82,13 @@ def main():
 					list_services.remove(serv['name'])
 				continue
 
+			if serv['state'] == 'wait' and serv['delete'] == 'yes':
+				# apagar aquivo definido como "yes" em "delete"
+				command = 'rm services/' + serv['name']
+				list_services.remove(serv['name'])
+				os.system(command)
+				db.saveLog(['<<main:service:deleted>>', 'service', serv['name'], 'wait', str(time.strftime('%d/%m/%Y-%H:%M:%S')), str(pid)])
+				continue
 			# verifica se o serviço está na lista para ser iniciado
 			if serv['name'] not in list_services:
 				# registro
@@ -92,7 +102,7 @@ def main():
 				# cria uma thread com um novo serviço
 				thread.start_new_thread(Service, (db.getDataService(serv['name']),))
 
-		time.sleep(abs(setting['time']))
+		time.sleep(abs(int(setting['time'])))
 
 if __name__ == '__main__':
 	main()

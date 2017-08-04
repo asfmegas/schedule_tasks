@@ -3,22 +3,32 @@
 import sys, os
 from database import Database
 
-entrada = sys.argv[1] if sys.argv[1:] else sys.exit()
-name = sys.argv[2] if sys.argv[2:] else sys.exit()
+if len(sys.argv) > 1: entrada_1 = sys.argv[1]
+if len(sys.argv) > 2: entrada_2 = sys.argv[2]
+if len(sys.argv) > 3: entrada_3 = sys.argv[3]
 
 db = Database()
-services = db.getDataServiceAll()
+options = 'stop running'.split()
 
-if entrada == 'setting':
-	setting = db.getDataSetting()
-	setting['state'] = name
-	db.updateSetting(setting)
+if entrada_1 == 'setting':
+	if entrada_2 in options:
+		setting = db.getDataSetting()
+		setting['state'] = entrada_2
+		db.updateSetting(setting)
+	else:
+		print('Não registrado.')
 
-state = sys.argv[3] if sys.argv[3:] else sys.exit()
-if entrada == 'service':
-	service = db.getDataService(name)
+if entrada_1 == 'service':
+	service = db.getDataService(entrada_2)
 	if service:
-		service['state'] = state
-		db.saveService(service)
+		if entrada_3 in options:
+			service['state'] = entrada_3
+			db.saveService(service)
+			print('{name};State:{state};Mode:{mode};Cmd:{command}'.format(name=service['name'],
+																	state=service['state'],
+																	mode=service['mode'],
+																	command=service['command']))
+		else:
+			print('Não registrado.')
 
 

@@ -38,7 +38,7 @@ class Service:
 			if str(count) == data['count']:
 				data['state'] = 'stop' if data['mode'] == 'repeat' else 'wait'
 				if data['state'] == 'wait': 
-					db.saveLog(['<<service:waiting>>', data['name'], 'waitting', str(time.strftime('%d/%m/%Y-%H:%M:%S')), self.getPidService()])
+					db.saveLog(['<<service:waiting>>', data['name'], data['mode'], 'waiting', str(time.strftime('%d/%m/%Y-%H:%M:%S')), self.getPidService()])
 				db.saveService(data)
 				to_return = True
 		return to_return
@@ -75,7 +75,7 @@ class Service:
 					self._notification(serv['notice'], serv['name'])
 					os.system(serv['command'])
 					if int(serv['count']) > 0: count += 1
-					db.saveLog(['<<service:executed:command>>', serv['name'], serv['mode'], serv['state'], str(serv['count']), str(time.strftime('%d/%m/%Y-%H:%M:%S')), self.getPidService()])
+					db.saveLog(['<<service:executed>>', serv['name'], serv['mode'], serv['state'], str(serv['count']), str(time.strftime('%d/%m/%Y-%H:%M:%S')), self.getPidService()])
 					if self._checkRepeat(serv, db, count): break
 					time.sleep(MINUTE)
 				else:
