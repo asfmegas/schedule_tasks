@@ -27,5 +27,6 @@ while True:
 		i.getListService()
 	elif option == '5':
 		i.setting()
-	elif option == '6':
+	elif option in '6 exit quit sair'.split():
+		print(' Bye!!!')
 		break

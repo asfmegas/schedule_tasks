@@ -1,0 +1,14 @@
+{
+  "state": "running",
+  "mode": "repeat",
+  "delete": "no",
+  "minute": "0",
+  "count": "-1",
+  "month": "0",
+  "command": "gal -m pdf doc odt",
+  "notice": "yes",
+  "name": "gal_doc",
+  "day": "0",
+  "time": "120",
+  "hour": "0"
+}

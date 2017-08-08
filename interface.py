@@ -33,11 +33,11 @@ class Interface:
 
 	def options(self):
 		print()
-		print(' 1 - New service\n 2 - Change service\n 3 - Delete service\n 4 - List services\n 5 - Setting\n 6 - Sair')
+		print(' 1 - New service\n 2 - Change service\n 3 - Delete service\n 4 - List services\n 5 - Setting\n 6 - Exit')
 		while True:
 			print('-' * 30)
-			option = Interface._getInt(' Option: ', 0)
-			if option in ['1', '2', '3', '4', '5', '6']:
+			option = input(' Option: ')
+			if option in '1 2 3 4 5 6 exit quit sair'.split():
 				break
 			else:
 				print(' Valor inválido!')
@@ -213,8 +213,21 @@ class Interface:
 		print(' No  Name                State  Time Repeat Notice  Mode    Del  Appointment   Command')
 		print('-----------------------------------------------------------------------------------------------')
 		count = 1
-		for item in db.getDataServiceAll():
-			app = str(item['hour'])+':'+str(item['minute'])+'-'+str(item['day'])+'/'+str(item['month'])
+		dados = db.getDataServiceAll()
+		list_sorted = sorted(dados[i]['name'] for i in range(len(dados)))
+		new_list = []
+		i = 0
+		while i < len(dados):
+			if dados[i]['name'] == list_sorted[0]:
+				new_list.append(dados[i])
+				list_sorted.remove(dados[i]['name'])
+				if len(list_sorted) > 0:
+					i = -1
+				else:
+					break
+			i += 1
+		for item in new_list:
+			app = ''.join([','.join(item['hour']), ':', ','.join(item['minute']), '-', str(item['day']), '/', str(item['month'])])
 			print(' {cnt:2}. {name:19} {state:7} {tm:6} {repeat:4} {notice:6} {mode:8} {delete:4} {appoint:12} {cmd}'.format(cnt=count,
 																										name=item['name'],
 																										state=item['state'],

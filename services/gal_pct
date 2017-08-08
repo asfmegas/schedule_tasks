@@ -1,0 +1,14 @@
+{
+  "state": "running",
+  "mode": "repeat",
+  "delete": "no",
+  "time": "120",
+  "minute": "0",
+  "count": "-1",
+  "hour": "0",
+  "command": "gal -m rar zip deb",
+  "notice": "no",
+  "name": "gal_pct",
+  "day": "0",
+  "month": "0"
+}

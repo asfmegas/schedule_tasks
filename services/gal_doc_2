@@ -1,0 +1,18 @@
+{
+  "time": "0",
+  "hour": [
+    "22"
+  ],
+  "mode": "date",
+  "delete": "no",
+  "state": "running",
+  "count": "-1",
+  "month": "0",
+  "minute": [
+    "1"
+  ],
+  "command": "gal -m txt docx epub",
+  "notice": "no",
+  "name": "gal_doc_2",
+  "day": "0"
+}
