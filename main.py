@@ -12,8 +12,8 @@ executada diversas vezes em intervalos de tempo pré-definidos.
 
 """
 
-import time, os
 import _thread as thread
+import time, os
 from timeit import time
 
 from database import Database
@@ -25,12 +25,13 @@ date_started = []
 os.chdir('/home/asfmint/mypy/schedule_tasks')
 
 def checkStart(old, new, db):
+	""" Verifica se houve alteração de data """
 	to_return = False
 	# restart os serviços em estado de espera "wait"
 	if old != new:
 		for serv in db.getDataServiceAll():
 			if serv['state'] == 'wait':
-				db.saveLog(['Serviço', serv['name'], 'mundando estado de "wait" para "running"'])
+				db.saveLog(['Serviço', serv['name'], 'alterando estado de "wait" para "running"'])
 				serv['state'] = 'running'
 				list_services.remove(serv['name'])
 				db.saveService(serv)
@@ -106,4 +107,6 @@ def main():
 
 if __name__ == '__main__':
 	main()
+
+
 

@@ -1,14 +1,14 @@
 {
-  "state": "running",
-  "mode": "repeat",
-  "delete": "no",
-  "minute": "0",
-  "count": "-1",
-  "month": "0",
+  "time": "90",
   "command": "morq --exec",
+  "mode": "repeat",
+  "day": "0",
+  "month": "0",
+  "count": "-1",
+  "minute": "0",
   "notice": "yes",
   "name": "morq_standart",
-  "day": "0",
-  "time": "90",
+  "delete": "no",
+  "state": "running",
   "hour": "0"
 }

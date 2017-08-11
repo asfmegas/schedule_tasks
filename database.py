@@ -5,7 +5,7 @@ from string import Template
 from timeit import time
 
 class Database:
-	# Serviço
+	""" Serviço """
 	def getDataServiceAll(self):
 		data_services = []
 		for (dir, nan, file) in os.walk('.'):
@@ -30,7 +30,7 @@ class Database:
 				file_json = json.load(file)
 				return file_json
 		except FileNotFoundError:
-			print("Serviço não encontrado!")
+			print('Serviço não encontrado!')
 			return False
 		except Exception as erro:
 			print('Erro ao abrir serviço', erro)

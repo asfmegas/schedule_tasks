@@ -1,114 +1,3 @@
-<<main:begin>>; 5822; running; 04/08/2017-12:36:57; <<main:begin>>; 5822
-<<main:service:started>>; service; comando_1; start; 04/08/2017-12:36:57; 5822
-<<main:service:started>>; service; comando_4; start; 04/08/2017-12:36:57; 5822
-<<main:service:started>>; service; comando_7; start; 04/08/2017-12:36:57; 5822
-<<main:service:started>>; service; comando_6; start; 04/08/2017-12:36:57; 5822
-<<main:service:started>>; service; comando_5; start; 04/08/2017-12:36:57; 5822
-<<main:service:started>>; service; comando_2; start; 04/08/2017-12:36:57; 5822
-<<main:service:started>>; service; comando_3; start; 04/08/2017-12:36:57; 5822
-<<service:executed>>; comando_6; repeat; running; 4; 1; 04/08/2017-12:36:57; 5822
-<<service:executed>>; comando_1; date; running; 3; 04/08/2017-12:36:57; 5822
-<<service:executed>>; comando_4; date; running; 4; 04/08/2017-12:36:57; 5822
-<<service:executed>>; comando_3; repeat; running; 4; 1; 04/08/2017-12:36:57; 5822
-<<service:executed>>; comando_2; repeat; running; 4; 5; 04/08/2017-12:36:57; 5822
-<<service:executed>>; comando_6; repeat; running; 4; 1; 04/08/2017-12:37:57; 5822
-<<service:executed>>; comando_4; date; running; 4; 04/08/2017-12:37:57; 5822
-<<service:executed>>; comando_1; date; running; 3; 04/08/2017-12:37:57; 5822
-<<service:executed>>; comando_3; repeat; running; 4; 1; 04/08/2017-12:37:57; 5822
-<<service:executed>>; comando_6; repeat; running; 4; 1; 04/08/2017-12:38:57; 5822
-<<service:executed>>; comando_1; date; running; 3; 04/08/2017-12:38:58; 5822
-<<service:waiting>>; comando_1; date; waiting; 04/08/2017-12:38:58; 5822
-<<service:executed>>; comando_3; repeat; running; 4; 1; 04/08/2017-12:38:58; 5822
-<<service:executed>>; comando_4; date; running; 4; 04/08/2017-12:38:58; 5822
-<<service:executed>>; comando_6; repeat; running; 4; 1; 04/08/2017-12:39:57; 5822
-<<main:service:deleted>>; service; comando_6; stop; 04/08/2017-12:39:58; 5822
-<<service:executed>>; comando_4; date; running; 4; 04/08/2017-12:39:58; 5822
-<<service:waiting>>; comando_4; date; waiting; 04/08/2017-12:39:58; 5822
-<<service:executed>>; comando_3; repeat; running; 4; 1; 04/08/2017-12:39:58; 5822
-<<main:service:stopped>>; service; comando_3; stop; 04/08/2017-12:39:59; 5822
-<<service:executed>>; comando_7; date; running; -1; 04/08/2017-12:40:27; 5822
-<<service:executed>>; comando_2; repeat; running; 4; 5; 04/08/2017-12:41:57; 5822
-<<service:executed>>; comando_7; date; running; -1; 04/08/2017-12:45:27; 5822
-<<service:executed>>; comando_2; repeat; running; 4; 5; 04/08/2017-12:46:58; 5822
-<<service:executed>>; comando_2; repeat; running; 4; 5; 04/08/2017-12:51:58; 5822
-<<main:service:deleted>>; service; comando_2; stop; 04/08/2017-12:51:59; 5822
-<<service:executed>>; comando_5; date; running; -1; 04/08/2017-13:10:29; 5822
-<<service:executed>>; comando_5; date; running; -1; 04/08/2017-13:15:29; 5822
-<<service:executed>>; comando_5; date; running; -1; 04/08/2017-13:20:29; 5822
-<<service:executed>>; comando_5; date; running; -1; 04/08/2017-13:25:00; 5822
-<<service:executed>>; comando_5; date; running; -1; 04/08/2017-13:30:00; 5822
-<<service:executed>>; comando_7; date; running; 4; 04/08/2017-13:30:29; 5822
-<<service:executed>>; comando_7; date; running; 4; 04/08/2017-13:35:29; 5822
-<<service:executed>>; comando_7; date; running; 4; 04/08/2017-13:40:00; 5822
-<<service:executed>>; comando_7; date; running; 4; 04/08/2017-13:45:00; 5822
-<<service:waiting>>; comando_7; waitting; 04/08/2017-13:45:00; 5822
-<<main:service:deleted>>; service; comando_7; wait; 04/08/2017-13:45:00; 5822
-<<main:stopped>>; 5822; stop; 04/08/2017-14:05:07; 5822
-<<main:begin>>; 11198; running; 04/08/2017-14:47:24; <<main:begin>>; 11198
-<<main:service:stopped>>; service; gal_master; stop; 04/08/2017-14:47:24; 11198
-<<main:service:stopped>>; service; morq_01; stop; 04/08/2017-14:47:24; 11198
-<<main:service:stopped>>; service; rdropbox; stop; 04/08/2017-14:47:24; 11198
-<<main:service:stopped>>; service; gal_master_02; stop; 04/08/2017-14:47:24; 11198
-<<main:service:stopped>>; service; gal_expression; stop; 04/08/2017-14:47:24; 11198
-<<main:service:started>>; service; rdropbox; start; 04/08/2017-14:48:13; 11198
-<<main:service:started>>; service; morq_01; start; 04/08/2017-14:56:46; 11198
-<<service:executed>>; morq_01; repeat; running; -1; 120; 04/08/2017-14:56:57; 11198
-<<main:service:started>>; service; gal_master; start; 04/08/2017-15:01:02; 11198
-<<service:executed>>; gal_master; repeat; running; -1; 120; 04/08/2017-15:01:02; 11198
-<<main:service:started>>; service; gal_master_02; start; 04/08/2017-15:01:23; 11198
-<<service:executed>>; gal_master_02; repeat; running; -1; 120; 04/08/2017-15:01:23; 11198
-<<main:service:stopped>>; service; gal_master; stop; 04/08/2017-15:02:09; 11198
-<<main:service:started>>; service; gal_master; start; 04/08/2017-15:08:08; 11198
-<<service:executed>>; gal_master; repeat; running; -1; 120; 04/08/2017-15:08:08; 11198
-<<main:service:started>>; service; gal_expression; start; 04/08/2017-15:47:52; 11198
-<<service:executed>>; gal_expression; repeat; running; -1; 1; 04/08/2017-15:47:52; 11198
-<<main:service:stopped>>; service; comando_1; stop; 04/08/2017-15:48:33; 11198
-<<service:executed>>; gal_expression; repeat; running; -1; 1; 04/08/2017-15:48:52; 11198
-<<service:executed>>; gal_expression; repeat; running; -1; 1; 04/08/2017-15:49:53; 11198
-<<service:executed>>; gal_expression; repeat; running; -1; 1; 04/08/2017-15:50:53; 11198
-<<service:executed>>; gal_expression; repeat; running; -1; 1; 04/08/2017-15:51:53; 11198
-<<service:executed>>; gal_expression; repeat; running; -1; 1; 04/08/2017-15:52:54; 11198
-<<service:executed>>; gal_expression; repeat; running; -1; 1; 04/08/2017-15:53:54; 11198
-<<service:executed>>; gal_expression; repeat; running; -1; 1; 04/08/2017-15:54:54; 11198
-<<service:executed>>; gal_expression; repeat; running; -1; 1; 04/08/2017-15:55:54; 11198
-<<service:executed>>; gal_expression; repeat; running; -1; 1; 04/08/2017-15:56:55; 11198
-<<service:executed>>; gal_expression; repeat; running; -1; 1; 04/08/2017-15:57:55; 11198
-<<service:executed>>; gal_expression; repeat; running; -1; 1; 04/08/2017-15:58:55; 11198
-<<service:executed>>; gal_expression; repeat; running; -1; 1; 04/08/2017-15:59:55; 11198
-<<service:executed>>; gal_expression; repeat; running; -1; 1; 04/08/2017-16:00:55; 11198
-<<service:executed>>; gal_expression; repeat; running; -1; 1; 04/08/2017-16:01:56; 11198
-<<main:service:stopped>>; service; gal_expression; stop; 04/08/2017-16:02:36; 11198
-<<service:stopped>>; gal_expression; stop; 04/08/2017-16:02:56; 11198
-<<main:stopped>>; 11198; stop; 04/08/2017-16:02:57; 11198
-<<main:begin>>; 14316; running; 04/08/2017-16:03:29; <<main:begin>>; 14316
-<<main:stopped>>; 14316; stop; 04/08/2017-16:03:29; 14316
-<<main:begin>>; 14366; running; 04/08/2017-16:04:37; <<main:begin>>; 14366
-<<main:service:started>>; service; gal_master; start; 04/08/2017-16:04:37; 14366
-<<main:service:started>>; service; morq_01; start; 04/08/2017-16:04:37; 14366
-<<main:service:started>>; service; rdropbox; start; 04/08/2017-16:04:37; 14366
-<<main:service:started>>; service; gal_master_02; start; 04/08/2017-16:04:37; 14366
-<<main:service:stopped>>; service; gal_expression; stop; 04/08/2017-16:04:37; 14366
-<<service:executed>>; gal_master; repeat; running; -1; 120; 04/08/2017-16:04:37; 14366
-<<service:executed>>; gal_master_02; repeat; running; -1; 120; 04/08/2017-16:04:37; 14366
-<<service:executed>>; morq_01; repeat; running; -1; 120; 04/08/2017-16:04:37; 14366
-<<main:begin>>; 14860; running; 04/08/2017-16:05:09; <<main:begin>>; 14860
-<<main:service:started>>; service; gal_master; start; 04/08/2017-16:05:09; 14860
-<<main:service:started>>; service; morq_01; start; 04/08/2017-16:05:09; 14860
-<<main:service:started>>; service; rdropbox; start; 04/08/2017-16:05:09; 14860
-<<main:service:started>>; service; gal_master_02; start; 04/08/2017-16:05:09; 14860
-<<main:service:stopped>>; service; gal_expression; stop; 04/08/2017-16:05:09; 14860
-<<service:executed>>; gal_master; repeat; running; -1; 120; 04/08/2017-16:05:09; 14860
-<<service:executed>>; gal_master_02; repeat; running; -1; 120; 04/08/2017-16:05:09; 14860
-<<service:executed>>; morq_01; repeat; running; -1; 120; 04/08/2017-16:05:09; 14860
-<<main:begin>>; 15348; running; 04/08/2017-16:05:47; <<main:begin>>; 15348
-<<main:service:started>>; service; gal_master; start; 04/08/2017-16:05:47; 15348
-<<main:service:started>>; service; morq_01; start; 04/08/2017-16:05:47; 15348
-<<main:service:started>>; service; rdropbox; start; 04/08/2017-16:05:47; 15348
-<<main:service:started>>; service; gal_master_02; start; 04/08/2017-16:05:47; 15348
-<<main:service:stopped>>; service; gal_expression; stop; 04/08/2017-16:05:47; 15348
-<<service:executed>>; gal_master_02; repeat; running; -1; 120; 04/08/2017-16:05:47; 15348
-<<service:executed>>; gal_master; repeat; running; -1; 120; 04/08/2017-16:05:47; 15348
-<<service:executed>>; morq_01; repeat; running; -1; 120; 04/08/2017-16:05:47; 15348
 <<main:begin>>; 15889; running; 04/08/2017-16:06:44; <<main:begin>>; 15889
 <<main:service:started>>; service; gal_master; start; 04/08/2017-16:06:44; 15889
 <<main:service:started>>; service; morq_01; start; 04/08/2017-16:06:44; 15889
@@ -313,3 +202,228 @@
 <<service:executed>>; gal_img; date; running; -1; 07/08/2017-22:10:19; 10495
 <<service:executed>>; rdropbox; date; running; -1; 07/08/2017-22:10:25; 10495
 <<service:executed>>; gal_img_2; date; running; -1; 07/08/2017-22:30:26; 10495
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 07/08/2017-23:05:49; 10495
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 07/08/2017-23:06:55; 10495
+<<main:service:deleted>>; service; meu_novo_servico_vai_se_c; stop; 07/08/2017-23:08:38; 10495
+<<main:service:stopped>>; service; comando_1; stop; 07/08/2017-23:09:54; 10495
+<<service:executed>>; gal_img; date; running; -1; 07/08/2017-23:10:22; 10495
+<<service:executed>>; rdropbox; date; running; -1; 07/08/2017-23:10:27; 10495
+<<main:service:stopped>>; service; comando_1_mais_comando_2_; stop; 07/08/2017-23:10:41; 10495
+<<main:service:stopped>>; service; comando_em_paralelep; stop; 07/08/2017-23:12:08; 10495
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 07/08/2017-23:25:35; 10495
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 07/08/2017-23:25:36; 10495
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 07/08/2017-23:26:44; 10495
+<<service:executed>>; gal_img; date; running; -1; 08/08/2017-00:10:25; 10495
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 08/08/2017-00:56:51; 10495
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 08/08/2017-01:05:49; 10495
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 08/08/2017-01:06:56; 10495
+<<service:executed>>; gal_img; date; running; -1; 08/08/2017-01:10:28; 10495
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 08/08/2017-01:25:36; 10495
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 08/08/2017-01:25:36; 10495
+<<main:begin>>; 2512; running; 08/08/2017-08:40:36; <<main:begin>>; 2512
+<<main:service:started>>; service; gal_pct_2; start; 08/08/2017-08:40:37; 2512
+<<main:service:started>>; service; rdropbox; start; 08/08/2017-08:40:37; 2512
+<<main:service:started>>; service; gal_doc; start; 08/08/2017-08:40:37; 2512
+<<main:service:started>>; service; gal_doc_2; start; 08/08/2017-08:40:37; 2512
+<<main:service:started>>; service; morq_standart; start; 08/08/2017-08:40:37; 2512
+<<main:service:started>>; service; gal_img; start; 08/08/2017-08:40:37; 2512
+<<main:service:started>>; service; gal_expression; start; 08/08/2017-08:40:37; 2512
+<<main:service:started>>; service; gal_pct; start; 08/08/2017-08:40:37; 2512
+<<main:service:started>>; service; gal_img_2; start; 08/08/2017-08:40:37; 2512
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 08/08/2017-08:40:37; 2512
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 08/08/2017-08:40:37; 2512
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 08/08/2017-08:40:37; 2512
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 08/08/2017-08:40:37; 2512
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 08/08/2017-08:41:04; 2512
+<<service:executed>>; gal_img; date; running; -1; 08/08/2017-09:10:09; 2512
+<<service:executed>>; gal_img; date; running; -1; 08/08/2017-10:10:12; 2512
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 08/08/2017-10:11:26; 2512
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 08/08/2017-10:40:37; 2512
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 08/08/2017-10:40:37; 2512
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 08/08/2017-10:40:37; 2512
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 08/08/2017-10:40:37; 2512
+<<service:executed>>; gal_img; date; running; -1; 08/08/2017-11:10:15; 2512
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 08/08/2017-11:41:28; 2512
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 08/08/2017-14:08:57; 2512
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 08/08/2017-14:08:57; 2512
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 08/08/2017-14:08:57; 2512
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 08/08/2017-14:08:58; 2512
+<<service:executed>>; gal_img; date; running; -1; 08/08/2017-14:10:09; 2512
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 08/08/2017-14:39:51; 2512
+<<service:executed>>; gal_img; date; running; -1; 08/08/2017-15:10:11; 2512
+<<service:executed>>; rdropbox; date; running; -1; 08/08/2017-15:10:19; 2512
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 08/08/2017-16:08:57; 2512
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 08/08/2017-16:08:58; 2512
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 08/08/2017-16:08:58; 2512
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 08/08/2017-16:08:58; 2512
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 08/08/2017-16:09:53; 2512
+<<service:executed>>; gal_img; date; running; -1; 08/08/2017-16:10:14; 2512
+<<service:executed>>; gal_img; date; running; -1; 08/08/2017-17:10:16; 2512
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 08/08/2017-17:39:55; 2512
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 08/08/2017-18:08:58; 2512
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 08/08/2017-18:08:58; 2512
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 08/08/2017-18:08:58; 2512
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 08/08/2017-18:08:59; 2512
+<<service:executed>>; gal_img; date; running; -1; 08/08/2017-18:10:19; 2512
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 08/08/2017-21:28:11; 2512
+<<service:executed>>; gal_img; date; running; -1; 08/08/2017-22:10:09; 2512
+<<service:executed>>; rdropbox; date; running; -1; 08/08/2017-22:10:18; 2512
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 08/08/2017-22:27:12; 2512
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 08/08/2017-22:27:13; 2512
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 08/08/2017-22:27:13; 2512
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 08/08/2017-22:27:14; 2512
+<<service:executed>>; gal_img_2; date; running; -1; 08/08/2017-22:30:06; 2512
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 08/08/2017-22:58:11; 2512
+<<service:executed>>; gal_img; date; running; -1; 08/08/2017-23:10:12; 2512
+<<service:executed>>; rdropbox; date; running; -1; 08/08/2017-23:10:21; 2512
+<<service:executed>>; gal_img; date; running; -1; 09/08/2017-00:10:15; 2512
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 09/08/2017-00:27:12; 2512
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 09/08/2017-00:27:13; 2512
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 09/08/2017-00:27:13; 2512
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 09/08/2017-00:27:14; 2512
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 09/08/2017-00:28:12; 2512
+<<service:executed>>; gal_img; date; running; -1; 09/08/2017-11:10:18; 2512
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 09/08/2017-11:55:13; 2512
+<<service:executed>>; gal_img; date; running; -1; 09/08/2017-12:10:21; 2512
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 09/08/2017-12:24:13; 2512
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 09/08/2017-12:24:13; 2512
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 09/08/2017-12:24:13; 2512
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 09/08/2017-12:24:15; 2512
+<<service:executed>>; gal_img; date; running; -1; 09/08/2017-13:10:24; 2512
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 09/08/2017-13:29:03; 2512
+<<service:executed>>; gal_img; date; running; -1; 09/08/2017-14:10:28; 2512
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 09/08/2017-14:24:13; 2512
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 09/08/2017-14:24:13; 2512
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 09/08/2017-14:24:13; 2512
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 09/08/2017-14:24:15; 2512
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 09/08/2017-14:59:13; 2512
+<<service:executed>>; gal_img; date; running; -1; 09/08/2017-15:10:00; 2512
+<<service:executed>>; rdropbox; date; running; -1; 09/08/2017-15:10:16; 2512
+<<service:executed>>; gal_img; date; running; -1; 09/08/2017-17:10:05; 2512
+<<main:begin>>; 2515; running; 09/08/2017-17:23:15; <<main:begin>>; 2515
+<<main:service:started>>; service; gal_pct_2; start; 09/08/2017-17:23:18; 2515
+<<main:service:started>>; service; rdropbox; start; 09/08/2017-17:23:18; 2515
+<<main:service:started>>; service; gal_doc; start; 09/08/2017-17:23:18; 2515
+<<main:service:started>>; service; gal_doc_2; start; 09/08/2017-17:23:18; 2515
+<<main:service:started>>; service; morq_standart; start; 09/08/2017-17:23:18; 2515
+<<main:service:started>>; service; gal_img; start; 09/08/2017-17:23:18; 2515
+<<main:service:started>>; service; gal_expression; start; 09/08/2017-17:23:18; 2515
+<<main:service:started>>; service; gal_pct; start; 09/08/2017-17:23:18; 2515
+<<main:service:started>>; service; gal_img_2; start; 09/08/2017-17:23:18; 2515
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 09/08/2017-17:23:19; 2515
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 09/08/2017-17:23:19; 2515
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 09/08/2017-17:23:19; 2515
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 09/08/2017-17:23:19; 2515
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 09/08/2017-17:23:57; 2515
+<<service:executed>>; gal_img; date; running; -1; 09/08/2017-18:10:21; 2515
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 09/08/2017-18:54:01; 2515
+<<service:executed>>; gal_img; date; running; -1; 09/08/2017-19:10:24; 2515
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 09/08/2017-19:23:19; 2515
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 09/08/2017-19:23:19; 2515
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 09/08/2017-19:23:19; 2515
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 09/08/2017-19:23:19; 2515
+<<service:executed>>; gal_img; date; running; -1; 09/08/2017-20:10:26; 2515
+<<service:executed>>; rdropbox; date; running; -1; 09/08/2017-20:10:40; 2515
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 09/08/2017-20:24:23; 2515
+<<service:executed>>; gal_img; date; running; -1; 09/08/2017-21:10:29; 2515
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 09/08/2017-21:23:19; 2515
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 09/08/2017-21:23:19; 2515
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 09/08/2017-21:23:19; 2515
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 09/08/2017-21:23:19; 2515
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 09/08/2017-21:54:31; 2515
+<<service:executed>>; gal_img; date; running; -1; 09/08/2017-22:10:02; 2515
+<<service:executed>>; rdropbox; date; running; -1; 09/08/2017-22:10:18; 2515
+<<service:executed>>; gal_img_2; date; running; -1; 09/08/2017-22:30:01; 2515
+<<service:executed>>; gal_img; date; running; -1; 09/08/2017-23:10:05; 2515
+<<service:executed>>; rdropbox; date; running; -1; 09/08/2017-23:10:21; 2515
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 09/08/2017-23:23:19; 2515
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 09/08/2017-23:23:19; 2515
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 09/08/2017-23:23:19; 2515
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 09/08/2017-23:23:20; 2515
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 09/08/2017-23:24:33; 2515
+<<service:executed>>; gal_img; date; running; -1; 10/08/2017-00:10:10; 2515
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 10/08/2017-00:54:37; 2515
+<<service:executed>>; gal_img; date; running; -1; 10/08/2017-01:10:14; 2515
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 10/08/2017-01:23:20; 2515
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 10/08/2017-01:23:20; 2515
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 10/08/2017-01:23:20; 2515
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 10/08/2017-01:23:21; 2515
+<<main:begin>>; 2536; running; 10/08/2017-16:59:32; <<main:begin>>; 2536
+<<main:service:started>>; service; gal_pct_2; start; 10/08/2017-16:59:32; 2536
+<<main:service:started>>; service; rdropbox; start; 10/08/2017-16:59:32; 2536
+<<main:service:started>>; service; gal_doc; start; 10/08/2017-16:59:32; 2536
+<<main:service:started>>; service; gal_doc_2; start; 10/08/2017-16:59:32; 2536
+<<main:service:started>>; service; morq_standart; start; 10/08/2017-16:59:32; 2536
+<<main:service:started>>; service; gal_img; start; 10/08/2017-16:59:32; 2536
+<<main:service:started>>; service; gal_expression; start; 10/08/2017-16:59:32; 2536
+<<main:service:started>>; service; gal_pct; start; 10/08/2017-16:59:32; 2536
+<<main:service:started>>; service; gal_img_2; start; 10/08/2017-16:59:32; 2536
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 10/08/2017-16:59:32; 2536
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 10/08/2017-16:59:32; 2536
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 10/08/2017-16:59:32; 2536
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 10/08/2017-16:59:32; 2536
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 10/08/2017-16:59:54; 2536
+<<service:executed>>; gal_img; date; running; -1; 10/08/2017-17:10:03; 2536
+<<service:executed>>; gal_img; date; running; -1; 10/08/2017-18:10:06; 2536
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 10/08/2017-18:30:14; 2536
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 10/08/2017-18:59:33; 2536
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 10/08/2017-18:59:33; 2536
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 10/08/2017-18:59:33; 2536
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 10/08/2017-18:59:33; 2536
+<<service:executed>>; gal_img; date; running; -1; 10/08/2017-19:10:09; 2536
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 10/08/2017-20:00:28; 2536
+<<service:executed>>; gal_img; date; running; -1; 10/08/2017-20:10:12; 2536
+<<service:executed>>; rdropbox; date; running; -1; 10/08/2017-20:10:20; 2536
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 10/08/2017-20:59:33; 2536
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 10/08/2017-20:59:33; 2536
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 10/08/2017-20:59:33; 2536
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 10/08/2017-20:59:34; 2536
+<<service:executed>>; gal_img; date; running; -1; 10/08/2017-21:10:16; 2536
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 10/08/2017-21:30:33; 2536
+<<service:executed>>; gal_img; date; running; -1; 10/08/2017-22:10:20; 2536
+<<service:executed>>; rdropbox; date; running; -1; 10/08/2017-22:10:31; 2536
+<<service:executed>>; gal_img_2; date; running; -1; 10/08/2017-22:30:18; 2536
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 10/08/2017-22:59:33; 2536
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 10/08/2017-22:59:33; 2536
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 10/08/2017-22:59:33; 2536
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 10/08/2017-22:59:34; 2536
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 10/08/2017-23:00:47; 2536
+<<service:executed>>; rdropbox; date; running; -1; 10/08/2017-23:10:04; 2536
+<<service:executed>>; gal_img; date; running; -1; 10/08/2017-23:10:23; 2536
+<<main:service:stopped>>; service; comando_1; stop; 10/08/2017-23:53:41; 2536
+<<service:executed>>; gal_img; date; running; -1; 11/08/2017-00:10:26; 2536
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 11/08/2017-00:30:51; 2536
+<<main:begin>>; 2498; running; 11/08/2017-09:28:20; <<main:begin>>; 2498
+<<main:service:started>>; service; gal_pct_2; start; 11/08/2017-09:28:21; 2498
+<<main:service:started>>; service; rdropbox; start; 11/08/2017-09:28:21; 2498
+<<main:service:stopped>>; service; comando_1; stop; 11/08/2017-09:28:21; 2498
+<<main:service:started>>; service; gal_doc; start; 11/08/2017-09:28:21; 2498
+<<main:service:started>>; service; gal_doc_2; start; 11/08/2017-09:28:21; 2498
+<<main:service:started>>; service; morq_standart; start; 11/08/2017-09:28:21; 2498
+<<main:service:started>>; service; gal_img; start; 11/08/2017-09:28:21; 2498
+<<main:service:started>>; service; gal_expression; start; 11/08/2017-09:28:21; 2498
+<<main:service:started>>; service; gal_pct; start; 11/08/2017-09:28:21; 2498
+<<main:service:started>>; service; gal_img_2; start; 11/08/2017-09:28:21; 2498
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 11/08/2017-09:28:21; 2498
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 11/08/2017-09:28:21; 2498
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 11/08/2017-09:28:21; 2498
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 11/08/2017-09:28:21; 2498
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 11/08/2017-09:29:13; 2498
+<<service:executed>>; gal_img; date; running; -1; 11/08/2017-10:10:23; 2498
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 11/08/2017-10:59:13; 2498
+<<service:executed>>; gal_img; date; running; -1; 11/08/2017-11:10:26; 2498
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 11/08/2017-11:28:21; 2498
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 11/08/2017-11:28:21; 2498
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 11/08/2017-11:28:21; 2498
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 11/08/2017-11:28:21; 2498
+<<service:executed>>; gal_img; date; running; -1; 11/08/2017-12:10:28; 2498
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 11/08/2017-12:29:14; 2498
+<<service:executed>>; gal_img; date; running; -1; 11/08/2017-13:10:01; 2498
+<<service:executed>>; gal_pct_2; repeat; running; -1; 120; 11/08/2017-13:46:10; 2498
+<<service:executed>>; gal_pct; repeat; running; -1; 120; 11/08/2017-13:46:10; 2498
+<<service:executed>>; gal_expression; repeat; running; -1; 120; 11/08/2017-13:46:10; 2498
+<<service:executed>>; gal_doc; repeat; running; -1; 120; 11/08/2017-13:46:11; 2498
+<<service:executed>>; gal_img; date; running; -1; 11/08/2017-14:10:21; 2498
+<<service:executed>>; morq_standart; repeat; running; -1; 90; 11/08/2017-14:17:03; 2498
+<<service:executed>>; rdropbox; date; running; -1; 11/08/2017-15:10:23; 2498
+<<service:executed>>; gal_img; date; running; -1; 11/08/2017-15:10:23; 2498

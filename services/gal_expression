@@ -1,14 +1,14 @@
 {
   "time": "120",
-  "hour": "0",
-  "mode": "repeat",
-  "delete": "no",
-  "state": "running",
-  "count": "-1",
-  "month": "0",
-  "minute": "0",
   "command": "gal -ms xlsx dic_exp",
+  "mode": "repeat",
+  "day": "0",
+  "month": "0",
+  "count": "-1",
+  "minute": "0",
   "notice": "no",
   "name": "gal_expression",
-  "day": "0"
+  "delete": "no",
+  "state": "running",
+  "hour": "0"
 }

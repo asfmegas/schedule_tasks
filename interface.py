@@ -15,6 +15,7 @@ import database
 from constants import *
 
 class Interface:
+	""" Manipulação de dados do sistema """
 	def __init__(self):
 		self.name = ''
 		self.command = ''
@@ -32,6 +33,7 @@ class Interface:
 		self.dataSetting = {}
 
 	def options(self):
+		""" Opcões principais dos sistema """
 		print()
 		print(' 1 - New service\n 2 - Change service\n 3 - Delete service\n 4 - List services\n 5 - Setting\n 6 - Exit')
 		while True:
@@ -45,8 +47,9 @@ class Interface:
 		return option
 
 	def newService(self):
+		""" Criação de novos serviços """
 		os.system('clear')
-		self.name = Interface._getString(' Name...: ', 0)
+		self.name = Interface._getString(' Name...: ', 0)[:19]
 		self.command = Interface._getString(' Command: ', 0)
 		self.notice = Interface._getString(' Notice.: ', 0)
 
@@ -81,6 +84,7 @@ class Interface:
 		self.deleteServ = Interface._getString(' Delete.: ', 0)
 
 	def save(self):
+		""" Persistir os serviços em arquivo """
 		self.data['name'] = self._normalizeText(self.name)
 		self.data['command'] = self.command
 		self.data['notice'] = self.notice # yes | notice
@@ -98,6 +102,7 @@ class Interface:
 		db.saveService(self.data)
 
 	def updateService(self):
+		""" Atualização do serviço """
 		db = database.Database()
 		titles = self.getTitles()
 		print('-' * 30)
@@ -113,7 +118,7 @@ class Interface:
 		os.system('clear')
 
 		print()
-		self.data['name'] = Interface._getString(' Name....({}): '.format(service['name']), 1)
+		self.data['name'] = Interface._getString(' Name....({}): '.format(service['name']), 1)[:19]
 		if not self.data['name']:
 			self.data['name'] = service['name']
 		else:
@@ -189,6 +194,7 @@ class Interface:
 			db.saveService(self.data)	
 
 	def deleteService(self):
+		""" Apagar um serviço """
 		db = database.Database()
 		titles = self.getTitles()
 
@@ -205,6 +211,7 @@ class Interface:
 				print(titles)
 
 	def getListService(self):
+		""" Obter todos os serviços criados e exibir na tela """
 		db = database.Database()
 		setting = db.getDataSetting()
 		os.system('clear')
@@ -243,6 +250,7 @@ class Interface:
 		print('\tSetting: time({}) state({}) PID({})'.format(setting['time'], setting['state'], setting['PID']))
 
 	def getTitles(self):
+		""" Obter apenas os títulos dos serviços """
 		db = database.Database()
 		titles = []
 		for service in db.getDataServiceAll():
@@ -250,6 +258,7 @@ class Interface:
 		return titles
 
 	def _getString(label, flag):
+		""" Verificar se a string é válida, recebe uma flag que permite o retorno de vazio """
 		to_return = ''
 		while True:
 			to_return = input(label)
