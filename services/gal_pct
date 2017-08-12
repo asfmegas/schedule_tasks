@@ -1,14 +1,14 @@
 {
-  "time": "120",
-  "command": "gal -m rar zip deb",
-  "mode": "repeat",
-  "day": "0",
-  "month": "0",
-  "count": "-1",
-  "minute": "0",
-  "notice": "no",
   "name": "gal_pct",
-  "delete": "no",
+  "notice": "no",
+  "command": "gal -m rar zip deb",
+  "hour": "0",
+  "time": "120",
+  "count": "-1",
+  "month": "0",
+  "day": "0",
+  "minute": "0",
   "state": "running",
-  "hour": "0"
+  "delete": "no",
+  "mode": "repeat"
 }

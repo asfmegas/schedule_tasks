@@ -1,21 +1,21 @@
 {
-  "time": "0",
-  "command": "rdropbox --upload-not-confirm",
-  "mode": "date",
-  "day": "0",
-  "month": "0",
-  "count": "-1",
-  "minute": [
-    "10"
-  ],
-  "notice": "yes",
   "name": "rdropbox",
-  "delete": "no",
-  "state": "running",
+  "notice": "yes",
+  "command": "rdropbox --upload-not-confirm",
   "hour": [
     "15",
     "20",
     "22",
     "23"
-  ]
+  ],
+  "time": "0",
+  "count": "-1",
+  "month": "0",
+  "day": "0",
+  "minute": [
+    "10"
+  ],
+  "state": "running",
+  "delete": "no",
+  "mode": "date"
 }

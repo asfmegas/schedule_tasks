@@ -1,8 +1,5 @@
 #-*- coding: utf-8 -*-
 
-__author__ = 'alex.facanha18@gmail.com <asfmegas.github.io>'
-
-
 from tkinter import *
 import tkinter
 
@@ -15,6 +12,14 @@ class ClasseBotoes(Button):
 		super(ClasseBotoes, self).__init__(parent)
 		self.config(text=nome, command=cmd, font=('arial', 20, 'bold'), cursor='hand2')
 
+class ClasseRadiobutton(Radiobutton):
+	def __init__(self, parent=None, texto='', valor='', var=''):
+		super(ClasseRadiobutton, self).__init__(parent)
+		self.config(text=texto, variable=var, value=valor, fg='black', font=FONTE_PADRAO_LABEL)
+		self.config(highlightcolor="green", wraplength=0, width=10, highlightbackground="grey", relief=SOLID)
+		self.config(cursor='hand2', borderwidth=5, activeforeground="green", activebackground="blue", height=1, selectcolor="grey")
+		self.config(padx=2, pady=2, anchor=CENTER)
+
 class ClasseToplevelPrincipal(Toplevel):
 	def __init__(self, titulo=''):
 		super(ClasseToplevelPrincipal, self).__init__()
@@ -22,13 +27,23 @@ class ClasseToplevelPrincipal(Toplevel):
 		self.config(padx=10, pady=10)
 
 		self.nome_entrada = self.nome()
-		self.comando_entrada = self.comando()
 		self.notice_entrada = self.notice()
 		self.state_entrada = self.state()
 		self.mode_entrada = self.mode()
+		self.repeat_entrada = self.repeat()
+
+		self.time_entrada = self.time()
+
+		self.minute_entrada = self.minute()
+		self.hour_entrada = self.hour()
+		self.day_entrada = self.day()
+		self.month_entrada = self.month()
+
+		self.delete_entrada = self.deleteService()
+		self.comando_entrada = self.comando()
 		self.botoes()
 
-		self.geometry("900x500")
+		self.geometry("900x600")
 
 		""" modal """
 		self.focus_set()
@@ -89,8 +104,8 @@ class ClasseToplevelPrincipal(Toplevel):
 		label = Label(frame, text='Notice: ', font=FONTE_PADRAO_LABEL).pack(side=LEFT)
 
 		var = StringVar()
-		notice_yes = Radiobutton(frame, text='Yes', variable=var, value='yes', fg='black', font=FONTE_PADRAO_LABEL).pack(side=LEFT)
-		notice_no = Radiobutton(frame, text='No', variable=var, value='no', fg='black', font=FONTE_PADRAO_LABEL).pack(side=LEFT)
+		notice_yes = ClasseRadiobutton(frame, texto="Yes", valor="yes", var=var).pack(side=LEFT)
+		notice_no = ClasseRadiobutton(frame, texto="No", valor="no", var=var).pack(side=LEFT)
 
 		return var
 
@@ -101,8 +116,8 @@ class ClasseToplevelPrincipal(Toplevel):
 		label = Label(frame, text='State: ', font=FONTE_PADRAO_LABEL).pack(side=LEFT)
 
 		var = StringVar()
-		state_running = Radiobutton(frame, text='Running', variable=var, value='running', fg='black', font=FONTE_PADRAO_LABEL).pack(side=LEFT)
-		state_stop = Radiobutton(frame, text='Stop', variable=var, value='stop', fg='black', font=FONTE_PADRAO_LABEL).pack(side=LEFT)
+		state_running = ClasseRadiobutton(frame, texto="Running", valor="running", var=var).pack(side=LEFT)
+		state_stop = ClasseRadiobutton(frame, texto="Stop", valor="stop", var=var).pack(side=LEFT)
 
 		return var
 
@@ -113,38 +128,145 @@ class ClasseToplevelPrincipal(Toplevel):
 		label = Label(frame, text='Mode: ', font=FONTE_PADRAO_LABEL).pack(side=LEFT)
 
 		var = StringVar()
-		mode_repeat = Radiobutton(frame, text='Repeat', variable=var, value='repeat', fg='black', font=FONTE_PADRAO_LABEL).pack(side=LEFT)
-		mode_date = Radiobutton(frame, text='Date', variable=var, value='date', fg='black', font=FONTE_PADRAO_LABEL).pack(side=LEFT)
+		repeat = ClasseRadiobutton(frame, texto="Repeat", valor="repeat", var=var)
+		repeat.pack(side=LEFT)
+		repeat.bind('<Button-1>', lambda eventos: self.controleRepeat())
 
-		# if var.get() == 'date':
-		# 	self.desabilitar([self.])
+		date = ClasseRadiobutton(frame, texto="Date", valor="date", var=var)
+		date.pack(side=LEFT)
+		date.bind('<Button-1>', lambda eventos: self.controleDate())
+
+		return var
+
+	def repeat(self):
+		frame = Frame(self)
+		frame.pack(expand=YES, fill=X)
+
+		label = Label(frame, text='Repeat: ', font=FONTE_PADRAO_LABEL).pack(side=LEFT)
+
+		entrada = Entry(frame, font=FONTE_PADRAO_CONTEUDO)
+		entrada.pack(side=LEFT)
+		entrada.config(width=6, justify=CENTER)
+
+		return entrada
+
+	def time(self):
+		frame = Frame(self)
+		frame.pack(expand=YES, fill=X)
+
+		label = Label(frame, text='Time: ', font=FONTE_PADRAO_LABEL).pack(side=LEFT)
+
+		entrada = Entry(frame, font=FONTE_PADRAO_CONTEUDO)
+		entrada.pack(side=LEFT)
+		entrada.config(width=6, justify=CENTER)
+
+		return entrada
+
+	def minute(self):
+		frame = Frame(self)
+		frame.pack(expand=YES, fill=X)
+
+		label = Label(frame, text='Minute: ', font=FONTE_PADRAO_LABEL).pack(side=LEFT)
+
+		entrada = Entry(frame, font=FONTE_PADRAO_CONTEUDO)
+		entrada.pack(side=LEFT)
+		entrada.config(width=12, justify=CENTER, state=DISABLED)
+
+		return entrada
+
+	def hour(self):
+		frame = Frame(self)
+		frame.pack(expand=YES, fill=X)
+
+		label = Label(frame, text='Hour: ', font=FONTE_PADRAO_LABEL).pack(side=LEFT)
+
+		entrada = Entry(frame, font=FONTE_PADRAO_CONTEUDO)
+		entrada.pack(side=LEFT)
+		entrada.config(width=12, justify=CENTER, state=DISABLED)
+
+		return entrada
+
+	def day(self):
+		frame = Frame(self)
+		frame.pack(expand=YES, fill=X)
+
+		label = Label(frame, text="Day: ", font=FONTE_PADRAO_LABEL).pack(side=LEFT)
+
+		var = IntVar()
+		scale = Scale(frame, variable=var, from_=0,  
+									to=31,  
+									showvalue=YES, 
+									resolution=1, 
+									tickinterval=1, 
+									orient=HORIZONTAL)
+		scale.pack(side=LEFT, expand=YES, fill=X)
+
+		return var
+
+	def month(self):
+		frame = Frame(self)
+		frame.pack(expand=YES, fill=X)
+
+		label = Label(frame, text="Month: ", font=FONTE_PADRAO_LABEL).pack(side=LEFT)
+
+		var = IntVar()
+		scale = Scale(frame, variable=var, from_=0, 
+									to=12,  
+									showvalue=YES, 
+									resolution=1, 
+									tickinterval=1, 
+									orient=HORIZONTAL)
+		scale.pack(side=LEFT, expand=YES, fill=X)
+
+		return var
+
+	def deleteService(self):
+		frame = Frame(self)
+		frame.pack(expand=YES, fill=X)
+
+		label = Label(frame, text="Delete: ", font=FONTE_PADRAO_LABEL).pack(side=LEFT)
+
+		var = StringVar()
+		ClasseRadiobutton(frame, texto="Yes", valor="yes", var=var).pack(side=LEFT)
+		ClasseRadiobutton(frame, texto="No", valor="no", var=var).pack(side=LEFT)
 
 		return var
 
 	def dados(self):
-		print(self.nome_entrada.get())
-		print(self.comando_entrada.get('1.0', END+'-1c'))
-		print(self.notice_entrada.get())
-		print(self.state_entrada.get())
-		print(self.mode_entrada.get())
+		print('Nome:', self.nome_entrada.get())
+		print('Comando:', self.comando_entrada.get('1.0', END+'-1c'))
+		print('Notice:', self.notice_entrada.get())
+		print('State:', self.state_entrada.get())
+		print('Mode:', self.mode_entrada.get())
+		print('Repeat:', self.repeat_entrada.get())
 
-	def desabilitar(self, *lista):
-		for item in lista:
-			item.config(state=DISABLED)
+		if self.mode_entrada.get() == 'date':
+			print('Minute:', self.minute_entrada.get())
+			print('Hour:', self.hour_entrada.get())
+			print('Day:', self.day_entrada.get())
+			print('Month:', self.month_entrada.get())
+		else:
+			print('Time:', self.time_entrada.get())
 
-	def habilitar(self):
-		self.nome_entrada.config(state=NORMAL)
+		print('Delete:', self.delete_entrada.get())
 
+	def controleRepeat(self):
+		self.time_entrada.config(state=NORMAL)
+
+		self.minute_entrada.config(state=DISABLED)
+		self.hour_entrada.config(state=DISABLED)
+
+	def controleDate(self, *widgets):
+		self.time_entrada.config(state=DISABLED)
+
+		self.minute_entrada.config(state=NORMAL)
+		self.hour_entrada.config(state=NORMAL)
 
 	def botoes(self):
 		frame = Frame(self)
 		frame.pack(expand=YES, fill=X)
 		ClasseBotoes(frame, 'Fechar', cmd=self.destroy).pack(side=RIGHT)
 		ClasseBotoes(frame, 'Exibir', cmd=self.dados).pack(side=RIGHT)
-		# ClasseBotoes(frame, 'Desabilitar', cmd=lambda: self.desabilitar(self.notice_entrada)).pack(side=RIGHT)
-		# ClasseBotoes(frame, 'Hbilitar', cmd=self.habilitar).pack(side=RIGHT)
-
-
 		
 class ClassToplevelDelete(Toplevel):
 	pass
@@ -178,10 +300,10 @@ class ClasseLabelPrincipal(Frame):
 		# 	ClasseBotoes(self, item.upper(), cmd=self.lista[item]).pack(expand=YES, fill=BOTH)
 
 	def newService(self):
-		ClasseToplevelPrincipal('Novo Serviço')
+		ClasseToplevelPrincipal('Criar Novo Serviço')
 
 	def updateService(self):
-		ClasseToplevelPrincipal('Alterar Serciço')
+		ClasseToplevelPrincipal('Alterar Serviço')
 
 	def deleteService(self):
 		pass
@@ -192,6 +314,7 @@ class ClasseLabelPrincipal(Frame):
 
 
 if __name__ == '__main__':
+
 	janela_principal = Tk()
 	janela_principal.title("Schedule Tasks")
 
@@ -199,7 +322,5 @@ if __name__ == '__main__':
 
 	janela_principal.geometry("250x350")
 	janela_principal.mainloop()
-
-
 
 
