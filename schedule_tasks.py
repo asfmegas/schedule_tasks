@@ -3,6 +3,8 @@
 from tkinter import *
 import tkinter
 
+from database import Database
+
 FUNDO_PRINCIPAL = '#201d1d'
 FONTE_PADRAO_LABEL = ('arial', 18, 'bold')
 FONTE_PADRAO_CONTEUDO = ('arial', 18)
@@ -27,6 +29,8 @@ class ClasseEntry(Entry):
 		self.config(font=FONTE_PADRAO_CONTEUDO,
 					width=w,
 					justify=j,
+					bg="black",
+					fg="white",
 					textvariable=var)
 
 class ClasseRadiobutton(Radiobutton):
@@ -46,7 +50,7 @@ class ClasseRadiobutton(Radiobutton):
 								cursor='hand2', # icone do mouse
 								borderwidth=5, # espessura da borda
 								highlightcolor="red", # quando selecionado cia tab
-								highlightbackground="blue", # cor da borda externa
+								# highlightbackground="blue", # cor da borda externa
 								activeforeground="black",  # cor do texto quando o mouse se posiciona em cima
 								activebackground="grey", # cor quando mouse se posiciona em cima
 								selectcolor="grey", # cor de dentro do círculo
@@ -137,7 +141,12 @@ class ClasseToplevelPrincipal(Toplevel):
 		frame_text = Frame(frame)
 		frame_text.pack(side=RIGHT, expand=YES, fill=X)
 
-		entrada = Text(frame_text, font=FONTE_PADRAO_CONTEUDO, height=2)
+		entrada = Text(frame_text, font=FONTE_PADRAO_CONTEUDO, 
+									padx=4,
+									pady=2,
+									height=2, 
+									bg="black", 
+									fg="white")
 		entrada.pack(side=LEFT, expand=YES, fill=X)
 		entrada.mark_set(INSERT, '1.0')
 		if self.value == 1:
@@ -240,9 +249,9 @@ class ClasseToplevelPrincipal(Toplevel):
 		var = StringVar()
 		entrada = Entry(frame, font=FONTE_PADRAO_CONTEUDO, textvariable=var)
 		entrada.pack(side=LEFT)
-		entrada.config(width=12, justify=CENTER, state=DISABLED)
+		entrada.config(width=12, justify=CENTER, state=DISABLED, bg="black", fg="white")
 		if self.value == 1:
-			var.set(self.dados['minute'])
+			var.set(','.join(self.dados['minute']))
 
 		return entrada
 
@@ -255,9 +264,9 @@ class ClasseToplevelPrincipal(Toplevel):
 		var = StringVar()
 		entrada = Entry(frame, font=FONTE_PADRAO_CONTEUDO, textvariable=var)
 		entrada.pack(side=LEFT)
-		entrada.config(width=12, justify=CENTER, state=DISABLED)
+		entrada.config(width=12, justify=CENTER, state=DISABLED, bg="black", fg="white")
 		if self.value == 1:
-			var.set(self.dados['hour'])
+			var.set(','.join(self.dados['hour']))
 
 		return entrada
 
@@ -269,11 +278,13 @@ class ClasseToplevelPrincipal(Toplevel):
 
 		var = IntVar()
 		scale = Scale(frame, variable=var, from_=0,  
-									to=31,  
-									showvalue=YES, 
-									resolution=1, 
-									tickinterval=1, 
-									orient=HORIZONTAL)
+											to=31,
+											bg=FUNDO_PRINCIPAL,
+											fg="white",
+											showvalue=YES, 
+											resolution=1, 
+											tickinterval=1, 
+											orient=HORIZONTAL)
 		scale.pack(side=LEFT, expand=YES, fill=X)
 		if self.value == 1:
 			var.set(int(self.dados['day']))
@@ -289,7 +300,9 @@ class ClasseToplevelPrincipal(Toplevel):
 		var = IntVar()
 		scale = Scale(frame, variable=var, 
 									from_=0, 
-									to=12,  
+									to=12,
+									bg=FUNDO_PRINCIPAL,
+									fg="white",  
 									showvalue=YES, 
 									resolution=1, 
 									tickinterval=1, 
@@ -314,71 +327,100 @@ class ClasseToplevelPrincipal(Toplevel):
 
 		return var
 
-	def dadosExibir(self):
+	def salvarDados(self):
+		db = Database()
 		count = 0
 		if self.verificarDados(self.nome_entrada.get()):
-			self.dados['name'] = self.nome_entrada.get()
+			self.dados['name'] = self._normalizeText(self.nome_entrada.get())
+			print('name')
 			count += 1
 
 		if self.verificarDados(self.notice_entrada.get()):
 			self.dados['notice'] = self.notice_entrada.get()
+			print('notice')
 			count += 1
 
 		if self.verificarDados(self.delete_entrada.get()):
 			self.dados['delete'] = self.delete_entrada.get()
+			print('delete')
 			count += 1
 
 		if self.verificarDados(self.state_entrada.get()):
 			self.dados['state'] = self.state_entrada.get()
+			print('state')
 			count += 1
 
 		if self.verificarDados(self.mode_entrada.get()):	
 			self.dados['mode'] = self.mode_entrada.get()
+			print('mode')
 			count += 1
 
 		if self.verificarDados(self.repeat_entrada.get()):
 			self.dados['count'] = self.repeat_entrada.get()
+			print('count')
 			count += 1
 
 		if self.verificarDados(self.comando_entrada.get('1.0', END+'-1c')):
 			self.dados['command'] = self.comando_entrada.get('1.0', END+'-1c')
+			print('command')
 			count += 1
 
 		if self.dados['mode'] == 'date':
 			if self.verificarDados(self.minute_entrada.get()):
-				self.dados['minute'] = self.minute_entrada.get()
+				self.dados['minute'] = self.minute_entrada.get().split(',')
+				print('minute')
 				count += 1
 
 			if self.verificarDados(self.hour_entrada.get()):
-				self.dados['hour'] = self.hour_entrada.get()
+				self.dados['hour'] = self.hour_entrada.get().split(',')
+				print('hour')
 				count += 1
 
 			if self.verificarDados(self.day_entrada.get()):
 				self.dados['day'] = self.day_entrada.get()
+				print('day')
+				count += 1
+			else:
+				print('else: day')
+				self.dados['day'] = '0'
 				count += 1
 
 			if self.verificarDados(self.month_entrada.get()):
 				self.dados['month'] = self.month_entrada.get()
+				print('month')
+				count += 1
+			else:
+				print('else: month')
+				self.dados['month'] = '0'
 				count += 1
 
-			self.dados['time'] = 0
+			self.dados['time'] = '0'
+			print('time')
 			count += 1
 		else:
 			if self.verificarDados(self.time_entrada.get()):
 				self.dados['time'] = self.time_entrada.get()
+				print('time')
 				count += 1
 
-			self.dados['minute'] = 0
+			self.dados['minute'] = '0'
+			print('minute')
 			count += 1
-			self.dados['hour'] = 0
+			self.dados['hour'] = '0'
+			print('hour')
 			count += 1
-			self.dados['day'] = 0
+			self.dados['day'] = '0'
+			print('day')
 			count += 1
-			self.dados['month'] = 0
+			self.dados['month'] = '0'
+			print('month')
 			count += 1
 
+		print('count: ', count)
 		if count == 12:
 			print(self.dados)
+			db.saveService(self.dados)
+			self.destroy()
 		else:
 			print('Não pode haver campos em branco.')
 
@@ -417,50 +459,80 @@ class ClasseToplevelPrincipal(Toplevel):
 		frame.config(bd=2, relief=GROOVE, padx=5, pady=5)
 
 		ClasseBotoes(frame, 'Fechar', cmd=self.destroy).pack(side=RIGHT)
-		ClasseBotoes(frame, 'Exibir', cmd=self.dadosExibir).pack(side=RIGHT)
+		ClasseBotoes(frame, 'Salvar', cmd=self.salvarDados).pack(side=RIGHT)
 
 	def verificarDados(self, value):
 		if value:
 			return True
 		return False
+
+	def _normalizeText(self, text):
+		new_text = []
+		for i in list(text):
+			if i != '\n':
+				if i == ' ':
+					new_text.append('_')
+				else:
+					new_text.append(i)
+		text = ''.join(new_text)
+		return text
 		
 class ClassToplevelDelete(Toplevel):
 	pass
 
 class ClasseFrame(Frame):
-	def __init__(self, parent=None):
+	def __init__(self, parent=None, acao='update'):
 		super(ClasseFrame, self).__init__(parent)
 		self.config(bg="#cccccc", padx=2, pady=2)
 		self.pack(fill=BOTH, expand=YES)
 		self.lista()
 
+		self.acao = acao
+
 	def lista(self):
-		opcoes = ['comando_1', 'comando_2', 'comando_3']
+		db = Database()
+
+		opcoes = [service['name'] for service in db.getDataServiceAll()]
 		scrollbar = Scrollbar(self)
 
 		lista_service = Listbox(self, relief=SUNKEN, font=FONTE_PADRAO_CONTEUDO)
+		scrollbar.config(command=lista_service.yview)
 		lista_service.config(yscrollcommand=scrollbar.set)
+		scrollbar.pack(side=RIGHT, fill=Y)
 		lista_service.pack(side=LEFT, expand=YES, fill=BOTH)
 		
-		scrollbar.config(command=lista_service.yview)
-		scrollbar.pack(side=RIGHT, fill=Y)
 		pos = 0
 		for label in opcoes:
 			lista_service.insert(pos, label)
 			pos += 1
 
-		lista_service.bind('<Double-1>', lambda eventos: self.updateService())
+		lista_service.bind('<Double-1>', lambda eventos: self.definirAcao(lista_service.get(lista_service.curselection())))
 
-	def updateService(self):
-		dados = { "name": "gal_img_2", "notice": "yes", "command": "gal -m jpeg", "hour": ["22"], "time": "0", "count": "-1", "month": "10", "day": "20", "minute": ["30"], "state": "running", "delete": "no", "mode": "date" }
+	def definirAcao(self, service):
+		if self.acao == 'update':
+			self.updateService(service)
+		else:
+			self.deleteService(service)
+
+	def updateService(self, service):
+		db = Database()
+		dados = db.getDataService(service)
 		ClasseToplevelPrincipal('Alterar Serviço', dados, value=1)
+
+	def deleteService(self, service):
+		db = Database()
+		db.deleteService(service)
+		# print(service)
 
 
 class ClassToplevelList(Toplevel):
-	def __init__(self):
+	def __init__(self, acao='update', titulo=''):
 		super(ClassToplevelList, self).__init__()
-		ClasseFrame(self)
-		self.geometry("250x400")
+		self.title(titulo)
+
+		self.labelTitulo(titulo)
+		ClasseFrame(self, acao)
+		self.geometry("300x500")
 
 		self.botoes()
 
@@ -468,6 +540,9 @@ class ClassToplevelList(Toplevel):
 		self.grab_set()
 		self.wait_window()
 		self.mainloop()
+
+	def labelTitulo(self, titulo):
+		Label(self, text=titulo, font=FONTE_PADRAO_LABEL).pack(fill=X, expand=YES)
 
 	def botoes(self):
 		frame = Frame(self)
@@ -492,7 +567,7 @@ class ClasseLabelPrincipal(Frame):
 	def botoes(self):
 		ClasseBotoes(self, 'Novo', cmd=self.lista['novo']).pack(expand=YES, fill=BOTH)
 		ClasseBotoes(self, 'Alterar', cmd=self.lista['alterar']).pack(expand=YES, fill=BOTH)
-		ClasseBotoes(self, 'Apagar').pack(expand=YES, fill=BOTH)
+		ClasseBotoes(self, 'Apagar', cmd=self.lista['apagar']).pack(expand=YES, fill=BOTH)
 		ClasseBotoes(self, 'Listar').pack(expand=YES, fill=BOTH)
 		ClasseBotoes(self, 'Sair', cmd=self.lista['sair']).pack(expand=YES, fill=BOTH)
 
@@ -501,12 +576,12 @@ class ClasseLabelPrincipal(Frame):
 		ClasseToplevelPrincipal('Criar Novo Serviço', dados)
 
 	def updateService(self):
-		ClassToplevelList()
+		ClassToplevelList(titulo='Atualizar Serviços')
 		# dados = { "name": "gal_img_2", "notice": "yes", "command": "gal -m jpeg", "hour": ["22"], "time": "0", "count": "-1", "month": "10", "day": "20", "minute": ["30"], "state": "running", "delete": "no", "mode": "date" }
 		# ClasseToplevelPrincipal('Alterar Serviço', dados, value=1)
 
 	def deleteService(self):
-		pass
+		ClassToplevelList(acao='delete', titulo="Apagar Serviços")
 
 	def listService(self):
 		pass

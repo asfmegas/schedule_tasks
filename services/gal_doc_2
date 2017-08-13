@@ -12,7 +12,7 @@
   "minute": [
     "1"
   ],
-  "state": "running",
+  "state": "stop",
   "delete": "no",
   "mode": "date"
 }

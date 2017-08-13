@@ -8,7 +8,7 @@
   "month": "0",
   "day": "0",
   "minute": "0",
-  "state": "running",
+  "state": "stop",
   "delete": "no",
   "mode": "repeat"
 }
