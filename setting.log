@@ -20,3 +20,19 @@
 <<service:executed>>; comando_2; date; running; 2; 13/08/2017-02:25:25; 1241
 <<service:executed>>; comando_2; date; running; 2; 13/08/2017-02:26:26; 1241
 <<service:waiting>>; comando_2; date; waiting; 13/08/2017-02:26:26; 1241
+<<main:service:started>>; service; comando_3; start; 13/08/2017-04:12:46; 1241
+<<service:executed>>; comando_3; repeat; running; 3; 1; 13/08/2017-04:12:47; 1241
+<<service:executed>>; comando_3; repeat; running; 3; 1; 13/08/2017-04:13:47; 1241
+<<service:executed>>; comando_3; repeat; running; 3; 1; 13/08/2017-04:14:47; 1241
+<<main:service:stopped>>; service; comando_3; stop; 13/08/2017-04:14:48; 1241
+<<main:service:started>>; service; comando_1; start; 13/08/2017-14:53:32; 1241
+<<service:executed>>; comando_1; repeat; running; 2; 1; 13/08/2017-14:53:33; 1241
+<<main:service:deleted>>; service; comando_2; stop; 13/08/2017-14:53:57; 1241
+<<main:service:started>>; service; comando_2; start; 13/08/2017-14:54:23; 1241
+<<service:executed>>; comando_2; repeat; running; 4; 1; 13/08/2017-14:54:23; 1241
+<<service:executed>>; comando_1; repeat; running; 2; 1; 13/08/2017-14:54:33; 1241
+<<main:service:stopped>>; service; comando_1; stop; 13/08/2017-14:54:33; 1241
+<<service:executed>>; comando_2; repeat; running; 4; 1; 13/08/2017-14:55:24; 1241
+<<service:executed>>; comando_2; repeat; running; 4; 1; 13/08/2017-14:56:24; 1241
+<<service:executed>>; comando_2; repeat; running; 4; 1; 13/08/2017-14:57:24; 1241
+<<main:service:deleted>>; service; comando_2; stop; 13/08/2017-14:57:24; 1241

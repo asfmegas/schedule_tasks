@@ -1,7 +1,9 @@
 #-*- coding: utf-8 -*-
 
 from tkinter import *
-import tkinter
+import tkinter, os
+
+os.chdir('/home/asfmint/mypy/schedule_tasks')
 
 from database import Database
 
@@ -12,13 +14,17 @@ FONTE_PADRAO_CONTEUDO = ('arial', 18)
 class ClasseBotoes(Button):
 	def __init__(self, parent=None, nome='', cmd=None):
 		super(ClasseBotoes, self).__init__(parent)
-		self.config(text=nome, command=cmd, font=FONTE_PADRAO_LABEL, cursor='hand2')
+		self.config(text=nome, command=cmd, 
+								font=FONTE_PADRAO_LABEL, 
+								cursor='hand2', 
+								bd=6, 
+								relief=GROOVE)
 
 class ClasseLabel(Label):
 	def __init__(self, parent=None, texto='', w=8):
 		super(ClasseLabel, self).__init__(parent)
 		self.pack(side=LEFT)
-		self.config(text=texto, 
+		self.config(text=texto,
 					width=w,
 					font=FONTE_PADRAO_LABEL,
 					anchor=W)
@@ -29,8 +35,8 @@ class ClasseEntry(Entry):
 		self.config(font=FONTE_PADRAO_CONTEUDO,
 					width=w,
 					justify=j,
-					bg="black",
-					fg="white",
+					bg="#cccccc",
+					fg="black",
 					textvariable=var)
 
 class ClasseRadiobutton(Radiobutton):
@@ -50,10 +56,10 @@ class ClasseRadiobutton(Radiobutton):
 								cursor='hand2', # icone do mouse
 								borderwidth=5, # espessura da borda
 								highlightcolor="red", # quando selecionado cia tab
-								# highlightbackground="blue", # cor da borda externa
+								highlightbackground="grey", # cor da borda externa
 								activeforeground="black",  # cor do texto quando o mouse se posiciona em cima
 								activebackground="grey", # cor quando mouse se posiciona em cima
-								selectcolor="grey", # cor de dentro do círculo
+								selectcolor="white", # cor de dentro do círculo
 								# padx=2, 
 								# pady=2,
 								anchor=CENTER) # centralizar texto
@@ -104,7 +110,7 @@ class ClasseToplevelPrincipal(Toplevel):
 		frame = Frame(self)
 		frame.pack(side=TOP, expand=YES, fill=X)
 
-		ClasseLabel(frame, texto="Nome: ")
+		ClasseLabel(frame, texto="Name: ")
 
 		var = StringVar()
 		entrada = ClasseEntry(frame, var=var)
@@ -116,7 +122,7 @@ class ClasseToplevelPrincipal(Toplevel):
 		return entrada
 
 	def lista(self):
-		frame = Frame(self, bg="blue")
+		frame = Frame(self)
 		frame.pack(side=TOP, expand=YES, fill=X)
 
 		ClasseLabel(frame, texto="Command: ")
@@ -145,8 +151,8 @@ class ClasseToplevelPrincipal(Toplevel):
 									padx=4,
 									pady=2,
 									height=2, 
-									bg="black", 
-									fg="white")
+									bg="#cccccc", 
+									fg="black")
 		entrada.pack(side=LEFT, expand=YES, fill=X)
 		entrada.mark_set(INSERT, '1.0')
 		if self.value == 1:
@@ -249,7 +255,7 @@ class ClasseToplevelPrincipal(Toplevel):
 		var = StringVar()
 		entrada = Entry(frame, font=FONTE_PADRAO_CONTEUDO, textvariable=var)
 		entrada.pack(side=LEFT)
-		entrada.config(width=12, justify=CENTER, state=DISABLED, bg="black", fg="white")
+		entrada.config(width=12, justify=CENTER, state=DISABLED, bg="#cccccc", fg="black")
 		if self.value == 1:
 			var.set(','.join(self.dados['minute']))
 
@@ -264,7 +270,7 @@ class ClasseToplevelPrincipal(Toplevel):
 		var = StringVar()
 		entrada = Entry(frame, font=FONTE_PADRAO_CONTEUDO, textvariable=var)
 		entrada.pack(side=LEFT)
-		entrada.config(width=12, justify=CENTER, state=DISABLED, bg="black", fg="white")
+		entrada.config(width=12, justify=CENTER, state=DISABLED, bg="#cccccc", fg="black")
 		if self.value == 1:
 			var.set(','.join(self.dados['hour']))
 
@@ -283,7 +289,8 @@ class ClasseToplevelPrincipal(Toplevel):
 											fg="white",
 											showvalue=YES, 
 											resolution=1, 
-											tickinterval=1, 
+											tickinterval=1,
+											cursor='hand2',
 											orient=HORIZONTAL)
 		scale.pack(side=LEFT, expand=YES, fill=X)
 		if self.value == 1:
@@ -305,7 +312,8 @@ class ClasseToplevelPrincipal(Toplevel):
 									fg="white",  
 									showvalue=YES, 
 									resolution=1, 
-									tickinterval=1, 
+									tickinterval=1,
+									cursor='hand2',
 									orient=HORIZONTAL)
 		scale.pack(side=LEFT, expand=YES, fill=X)
 		if self.value == 1:
@@ -424,23 +432,6 @@ class ClasseToplevelPrincipal(Toplevel):
 		else:
 			print('Não pode haver campos em branco.')
 
-		# print('Nome:', self.nome_entrada.get())
-		# print('Notice:', self.notice_entrada.get())
-		# print('Delete:', self.delete_entrada.get())
-		# print('State:', self.state_entrada.get())
-		# print('Mode:', self.mode_entrada.get())
-		# print('Repeat:', self.repeat_entrada.get())
-
-		# if self.dados['mode'] == 'date':
-		# 	print('Minute:', self.minute_entrada.get())
-		# 	print('Hour:', self.hour_entrada.get())
-		# 	print('Day:', self.day_entrada.get())
-		# 	print('Month:', self.month_entrada.get())
-		# else:
-		# 	print('Time:', self.time_entrada.get())
-
-		# print('Comando:', self.comando_entrada.get('1.0', END+'-1c'))
-
 	def controleRepeat(self):
 		self.time_entrada.config(state=NORMAL)
 
@@ -458,8 +449,8 @@ class ClasseToplevelPrincipal(Toplevel):
 		frame.pack(expand=YES, fill=X)
 		frame.config(bd=2, relief=GROOVE, padx=5, pady=5)
 
-		ClasseBotoes(frame, 'Fechar', cmd=self.destroy).pack(side=RIGHT)
-		ClasseBotoes(frame, 'Salvar', cmd=self.salvarDados).pack(side=RIGHT)
+		ClasseBotoes(frame, 'Quit', cmd=self.destroy).pack(side=RIGHT)
+		ClasseBotoes(frame, 'Save', cmd=self.salvarDados).pack(side=RIGHT)
 
 	def verificarDados(self, value):
 		if value:
@@ -477,8 +468,6 @@ class ClasseToplevelPrincipal(Toplevel):
 		text = ''.join(new_text)
 		return text
 		
-class ClassToplevelDelete(Toplevel):
-	pass
 
 class ClasseFrame(Frame):
 	def __init__(self, parent=None, acao='update'):
@@ -495,7 +484,7 @@ class ClasseFrame(Frame):
 		opcoes = [service['name'] for service in db.getDataServiceAll()]
 		scrollbar = Scrollbar(self)
 
-		lista_service = Listbox(self, relief=SUNKEN, font=FONTE_PADRAO_CONTEUDO)
+		lista_service = Listbox(self, relief=SUNKEN, font=FONTE_PADRAO_CONTEUDO, bg="#cccccc", fg="black")
 		scrollbar.config(command=lista_service.yview)
 		lista_service.config(yscrollcommand=scrollbar.set)
 		scrollbar.pack(side=RIGHT, fill=Y)
@@ -522,7 +511,6 @@ class ClasseFrame(Frame):
 	def deleteService(self, service):
 		db = Database()
 		db.deleteService(service)
-		# print(service)
 
 
 class ClassToplevelList(Toplevel):
@@ -542,13 +530,70 @@ class ClassToplevelList(Toplevel):
 		self.mainloop()
 
 	def labelTitulo(self, titulo):
-		Label(self, text=titulo, font=FONTE_PADRAO_LABEL).pack(fill=X, expand=YES)
+		Label(self, text=titulo, 
+					font=FONTE_PADRAO_LABEL, 
+					# bd=6, 
+					# relief=SOLID, 
+					pady=15).pack(fill=X, expand=YES)
 
 	def botoes(self):
 		frame = Frame(self)
 		frame.pack()
 
-		ClasseBotoes(self, nome="Fechar", cmd=self.destroy).pack(side=RIGHT, fill=X, expand=YES)
+		ClasseBotoes(self, nome="Quit", cmd=self.destroy).pack(side=RIGHT, fill=X, expand=YES)
+
+class ClasseToplevelView(Toplevel):
+	def __init__(self):
+		super(ClasseToplevelView, self).__init__()
+
+		self.conteudo()
+
+		# self.geometry("1300x600")
+		self.focus_set()
+		self.grab_set()
+		self.wait_window()
+		self.mainloop()
+
+	def conteudo(self):
+		db = Database()
+		frame = Frame(self).grid(row=0, column=0)
+
+		dados = db.getDataServiceAll()
+		list_sorted = sorted(dados[i]['name'] for i in range(len(dados)))
+		new_list = []
+		i = 0
+		while i < len(dados):
+			if dados[i]['name'] == list_sorted[0]:
+				new_list.append(dados[i])
+				list_sorted.remove(dados[i]['name'])
+				if len(list_sorted) > 0:
+					i = -1
+				else:
+					break
+			i += 1
+
+		rotulos = ['name', 'state', 'time', 'count', 'notice', 'mode', 'delete', 'command']
+		rotulos_dic = {'name':19, 'state':8, 'time':6, 'count':8, 'notice':10, 'mode':6, 'delete':10, 'command':35}
+		i = 1
+		cor = FUNDO_PRINCIPAL
+		for linha in new_list:
+			for c, item in enumerate(rotulos):
+				if i % 2 == 0:
+					cor = 'black'
+				else:
+					cor = FUNDO_PRINCIPAL
+				if i == 1:
+					Label(self, text=item.upper(), font=FONTE_PADRAO_LABEL, width=rotulos_dic[item]).grid(row=i-1, column=c)
+				Label(self, text=linha[item], font=FONTE_PADRAO_CONTEUDO, width=rotulos_dic[item], bg=cor).grid(row=i, column=c)
+			i += 1
+
+		Button(self, text="Quit", command=self.destroy, 
+									font=FONTE_PADRAO_LABEL, 
+									cursor='hand2', 
+									bd=3,
+									relief = GROOVE,
+									width=10).grid(row=i+1, column=0, columnspan=10, sticky=E)
+		
 
 class ClasseLabelPrincipal(Frame):
 	def __init__(self, parent=None):
@@ -565,11 +610,11 @@ class ClasseLabelPrincipal(Frame):
 		self.botoes()
 
 	def botoes(self):
-		ClasseBotoes(self, 'Novo', cmd=self.lista['novo']).pack(expand=YES, fill=BOTH)
-		ClasseBotoes(self, 'Alterar', cmd=self.lista['alterar']).pack(expand=YES, fill=BOTH)
-		ClasseBotoes(self, 'Apagar', cmd=self.lista['apagar']).pack(expand=YES, fill=BOTH)
-		ClasseBotoes(self, 'Listar').pack(expand=YES, fill=BOTH)
-		ClasseBotoes(self, 'Sair', cmd=self.lista['sair']).pack(expand=YES, fill=BOTH)
+		ClasseBotoes(self, 'New', cmd=self.lista['novo']).pack(expand=YES, fill=BOTH)
+		ClasseBotoes(self, 'Update', cmd=self.lista['alterar']).pack(expand=YES, fill=BOTH)
+		ClasseBotoes(self, 'Delete', cmd=self.lista['apagar']).pack(expand=YES, fill=BOTH)
+		ClasseBotoes(self, 'List', cmd=self.lista['listar']).pack(expand=YES, fill=BOTH)
+		ClasseBotoes(self, 'Exit', cmd=self.lista['sair']).pack(expand=YES, fill=BOTH)
 
 	def newService(self):
 		dados = {"name": "", "notice": "", "command": "", "hour": "", "time": "", "count": "", "month": "0", "day": "0", "minute": "", "state": "", "delete": "", "mode": ""}
@@ -577,20 +622,18 @@ class ClasseLabelPrincipal(Frame):
 
 	def updateService(self):
 		ClassToplevelList(titulo='Atualizar Serviços')
-		# dados = { "name": "gal_img_2", "notice": "yes", "command": "gal -m jpeg", "hour": ["22"], "time": "0", "count": "-1", "month": "10", "day": "20", "minute": ["30"], "state": "running", "delete": "no", "mode": "date" }
-		# ClasseToplevelPrincipal('Alterar Serviço', dados, value=1)
 
 	def deleteService(self):
 		ClassToplevelList(acao='delete', titulo="Apagar Serviços")
 
 	def listService(self):
-		pass
+		ClasseToplevelView()
 
 if __name__ == '__main__':
 	janela_principal = Tk()
 	janela_principal.title("Schedule Tasks")
 
-	frame1 = ClasseLabelPrincipal(janela_principal)
+	ClasseLabelPrincipal(janela_principal)
 
 	janela_principal.geometry("250x350")
 	janela_principal.mainloop()
