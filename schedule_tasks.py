@@ -2,6 +2,7 @@
 
 from tkinter import *
 import tkinter, os
+from tkinter.messagebox import *
 
 os.chdir('/home/asfmint/mypy/schedule_tasks')
 
@@ -21,9 +22,9 @@ class ClasseBotoes(Button):
 								relief=GROOVE)
 
 class ClasseLabel(Label):
-	def __init__(self, parent=None, texto='', w=8):
+	def __init__(self, parent=None, texto='', w=8, s=LEFT):
 		super(ClasseLabel, self).__init__(parent)
-		self.pack(side=LEFT)
+		self.pack(side=s)
 		self.config(text=texto,
 					width=w,
 					font=FONTE_PADRAO_LABEL,
@@ -45,7 +46,6 @@ class ClasseRadiobutton(Radiobutton):
 		self.config(text=texto, variable=var,
 								command=cmd,
 								value=valor,
-								# textvariable='yes',
 								bg="#cccccc", # cor de fundo
 								fg="black", # cor de texto
 								font=FONTE_PADRAO_LABEL,
@@ -60,8 +60,6 @@ class ClasseRadiobutton(Radiobutton):
 								activeforeground="black",  # cor do texto quando o mouse se posiciona em cima
 								activebackground="grey", # cor quando mouse se posiciona em cima
 								selectcolor="white", # cor de dentro do círculo
-								# padx=2, 
-								# pady=2,
 								anchor=CENTER) # centralizar texto
 
 class ClasseToplevelPrincipal(Toplevel):
@@ -340,97 +338,76 @@ class ClasseToplevelPrincipal(Toplevel):
 		count = 0
 		if self.verificarDados(self.nome_entrada.get()):
 			self.dados['name'] = self._normalizeText(self.nome_entrada.get())
-			print('name')
 			count += 1
 
 		if self.verificarDados(self.notice_entrada.get()):
 			self.dados['notice'] = self.notice_entrada.get()
-			print('notice')
 			count += 1
 
 		if self.verificarDados(self.delete_entrada.get()):
 			self.dados['delete'] = self.delete_entrada.get()
-			print('delete')
 			count += 1
 
 		if self.verificarDados(self.state_entrada.get()):
 			self.dados['state'] = self.state_entrada.get()
-			print('state')
 			count += 1
 
 		if self.verificarDados(self.mode_entrada.get()):	
 			self.dados['mode'] = self.mode_entrada.get()
-			print('mode')
 			count += 1
 
 		if self.verificarDados(self.repeat_entrada.get()):
 			self.dados['count'] = self.repeat_entrada.get()
-			print('count')
 			count += 1
 
 		if self.verificarDados(self.comando_entrada.get('1.0', END+'-1c')):
 			self.dados['command'] = self.comando_entrada.get('1.0', END+'-1c')
-			print('command')
 			count += 1
 
 		if self.dados['mode'] == 'date':
 			if self.verificarDados(self.minute_entrada.get()):
 				self.dados['minute'] = self.minute_entrada.get().split(',')
-				print('minute')
 				count += 1
 
 			if self.verificarDados(self.hour_entrada.get()):
 				self.dados['hour'] = self.hour_entrada.get().split(',')
-				print('hour')
 				count += 1
 
 			if self.verificarDados(self.day_entrada.get()):
 				self.dados['day'] = self.day_entrada.get()
-				print('day')
 				count += 1
 			else:
-				print('else: day')
 				self.dados['day'] = '0'
 				count += 1
 
 			if self.verificarDados(self.month_entrada.get()):
 				self.dados['month'] = self.month_entrada.get()
-				print('month')
 				count += 1
 			else:
-				print('else: month')
 				self.dados['month'] = '0'
 				count += 1
 
 			self.dados['time'] = '0'
-			print('time')
 			count += 1
 		else:
 			if self.verificarDados(self.time_entrada.get()):
 				self.dados['time'] = self.time_entrada.get()
-				print('time')
 				count += 1
 
 			self.dados['minute'] = '0'
-			print('minute')
 			count += 1
 			self.dados['hour'] = '0'
-			print('hour')
 			count += 1
 			self.dados['day'] = '0'
-			print('day')
 			count += 1
 			self.dados['month'] = '0'
-			print('month')
 			count += 1
 
-		print('count: ', count)
 		if count == 12:
-			print(self.dados)
 			db.saveService(self.dados)
 			self.destroy()
 		else:
-			print('Não pode haver campos em branco.')
+			showwarning('Warning!', 'There can be no blank field.')
 
 	def controleRepeat(self):
 		self.time_entrada.config(state=NORMAL)
@@ -472,6 +449,7 @@ class ClasseToplevelPrincipal(Toplevel):
 class ClasseFrame(Frame):
 	def __init__(self, parent=None, acao='update'):
 		super(ClasseFrame, self).__init__(parent)
+		self.parent = parent
 		self.config(bg="#cccccc", padx=2, pady=2)
 		self.pack(fill=BOTH, expand=YES)
 		self.lista()
@@ -507,10 +485,13 @@ class ClasseFrame(Frame):
 		db = Database()
 		dados = db.getDataService(service)
 		ClasseToplevelPrincipal('Alterar Serviço', dados, value=1)
+		self.parent.destroy()
 
 	def deleteService(self, service):
 		db = Database()
-		db.deleteService(service)
+		if askquestion('Warning!', 'Do you want to delete this service?') == 'yes':
+			db.deleteService(service)
+		self.parent.destroy()
 
 
 class ClassToplevelList(Toplevel):
@@ -532,8 +513,6 @@ class ClassToplevelList(Toplevel):
 	def labelTitulo(self, titulo):
 		Label(self, text=titulo, 
 					font=FONTE_PADRAO_LABEL, 
-					# bd=6, 
-					# relief=SOLID, 
 					pady=15).pack(fill=X, expand=YES)
 
 	def botoes(self):
@@ -548,7 +527,6 @@ class ClasseToplevelView(Toplevel):
 
 		self.conteudo()
 
-		# self.geometry("1300x600")
 		self.focus_set()
 		self.grab_set()
 		self.wait_window()
@@ -593,6 +571,56 @@ class ClasseToplevelView(Toplevel):
 									bd=3,
 									relief = GROOVE,
 									width=10).grid(row=i+1, column=0, columnspan=10, sticky=E)
+
+
+class ClasseToplevelSetting(Toplevel):
+	def __init__(self, titulo=''):
+		super(ClasseToplevelSetting, self).__init__()
+		self.title(titulo)
+		self.config(padx=15, pady=15)
+
+		db = Database()
+		self.dados = db.getDataSetting()
+
+		self.state = self.conteudo()
+		self.botoes()
+
+		self.focus_set()
+		self.grab_set()
+		self.wait_window()
+		self.mainloop()
+
+	def conteudo(self):
+		frame = Frame(self, pady=10)
+		frame.pack(fill=BOTH, expand=YES)
+
+		ClasseLabel(frame, texto="PID: " + str(self.dados['PID']), w=10, s=TOP)
+		ClasseLabel(frame, texto="Time: " + str(self.dados['time']), w=10, s=TOP)
+		ClasseLabel(frame, texto="State: ", w=6)
+
+		var_setting = StringVar()
+		ClasseRadiobutton(frame, texto="Running", valor="running", var=var_setting).pack(side=LEFT)
+		ClasseRadiobutton(frame, texto="Stop", valor="stop", var=var_setting).pack(side=LEFT)
+
+		if self.dados['state'] == 'running':
+			var_setting.set('running')
+		else:
+			var_setting.set('stop')
+
+		return var_setting
+
+	def botoes(self):
+		ClasseBotoes(self, nome="Quit", cmd=self.destroy).pack(side=RIGHT)
+		ClasseBotoes(self, nome="Update", cmd=self.updateSetting).pack(side=RIGHT)
+
+	def updateSetting(self):
+		db = Database()
+		self.dados['state'] = self.state.get()
+		if askquestion('Warning!', 'Do you want to delete this service?') == 'yes':
+			db.updateSetting(self.dados)
+		self.destroy()
+
+
 		
 
 class ClasseLabelPrincipal(Frame):
@@ -605,6 +633,7 @@ class ClasseLabelPrincipal(Frame):
 				"alterar": self.updateService,
 				"apagar": self.deleteService,
 				"listar": self.listService,
+				"setting": self.setting,
 				"sair": quit
 			}
 		self.botoes()
@@ -614,6 +643,7 @@ class ClasseLabelPrincipal(Frame):
 		ClasseBotoes(self, 'Update', cmd=self.lista['alterar']).pack(expand=YES, fill=BOTH)
 		ClasseBotoes(self, 'Delete', cmd=self.lista['apagar']).pack(expand=YES, fill=BOTH)
 		ClasseBotoes(self, 'List', cmd=self.lista['listar']).pack(expand=YES, fill=BOTH)
+		ClasseBotoes(self, 'Setting', cmd=self.lista['setting']).pack(expand=YES, fill=BOTH)
 		ClasseBotoes(self, 'Exit', cmd=self.lista['sair']).pack(expand=YES, fill=BOTH)
 
 	def newService(self):
@@ -628,6 +658,9 @@ class ClasseLabelPrincipal(Frame):
 
 	def listService(self):
 		ClasseToplevelView()
+
+	def setting(self):
+		ClasseToplevelSetting(titulo='Setting - Schedule Tasks')
 
 if __name__ == '__main__':
 	janela_principal = Tk()
