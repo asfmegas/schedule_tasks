@@ -1,14 +1,14 @@
 {
-  "name": "gal_pct_2",
-  "notice": "no",
-  "command": "gal -m xz iso bz2",
-  "hour": "0",
-  "time": "120",
-  "count": "-1",
   "month": "0",
+  "delete": "no",
+  "notice": "no",
+  "state": "stop",
+  "command": "gal -m xz iso bz2",
+  "time": "120",
   "day": "0",
   "minute": "0",
-  "state": "stop",
-  "delete": "no",
+  "count": "-1",
+  "hour": "0",
+  "name": "gal_pct_2",
   "mode": "repeat"
 }

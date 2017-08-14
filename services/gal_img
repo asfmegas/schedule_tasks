@@ -1,18 +1,18 @@
 {
-  "name": "gal_img",
-  "notice": "yes",
-  "command": "gal -m jpg png gif",
-  "hour": [
-    "0"
-  ],
-  "time": "0",
-  "count": "-1",
   "month": "0",
+  "delete": "no",
+  "notice": "yes",
+  "state": "stop",
+  "command": "gal -m jpg png gif",
+  "time": "0",
   "day": "0",
   "minute": [
     "10"
   ],
-  "state": "stop",
-  "delete": "no",
+  "count": "-1",
+  "hour": [
+    "0"
+  ],
+  "name": "gal_img",
   "mode": "date"
 }

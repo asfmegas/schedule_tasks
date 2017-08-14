@@ -18,7 +18,7 @@ class Service:
 		return str(os.getpid())
 
 	def _checkDate(self, data):
-		appointment = [[h, m, data['day'], data['month']] for m in data['minute'] for h in data['hour']]
+		appointment = [[h, m, str(data['day']), str(data['month'])] for m in data['minute'] for h in data['hour']]
 		current_time = ['0', '0', '0', '0']
 		to_return = False
 		for item in appointment:
@@ -26,8 +26,8 @@ class Service:
 				if item[i] == '0':
 					current_time[i] = '0'
 				else:
-					current_time[i] = self.date_list[i]
-			if item == current_time: 
+					current_time[i] = str(int(self.date_list[i]))
+			if item == current_time:
 				to_return = True
 				break
 		return to_return
