@@ -1,7 +1,7 @@
 {
   "month": "0",
-  "name": "gal_expression",
-  "command": "gal -ms xlsx dic_exp",
+  "name": "gal_videos",
+  "command": "gal -m mp4 webm mkv",
   "mode": "repeat",
   "hour": "0",
   "delete": "no",
@@ -9,6 +9,6 @@
   "day": "0",
   "state": "stop",
   "minute": "0",
-  "notice": "no",
+  "notice": "yes",
   "time": "120"
 }

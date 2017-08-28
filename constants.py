@@ -11,3 +11,8 @@ MINUTE = 60
 HOUR = 24
 DAY = 31
 MONTH = 12
+
+# GUI
+FUNDO_PRINCIPAL = '#201d1d'
+FONTE_PADRAO_LABEL = ('arial', 18, 'bold')
+FONTE_PADRAO_CONTEUDO = ('arial', 18)

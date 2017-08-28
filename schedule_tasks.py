@@ -7,10 +7,7 @@ from tkinter.messagebox import *
 os.chdir('/home/asfmint/mypy/schedule_tasks')
 
 from database import Database
-
-FUNDO_PRINCIPAL = '#201d1d'
-FONTE_PADRAO_LABEL = ('arial', 18, 'bold')
-FONTE_PADRAO_CONTEUDO = ('arial', 18)
+from constants import *
 
 class ClasseBotoes(Button):
 	def __init__(self, parent=None, nome='', cmd=None):
@@ -18,7 +15,8 @@ class ClasseBotoes(Button):
 		self.config(text=nome, command=cmd, 
 								font=FONTE_PADRAO_LABEL, 
 								cursor='hand2', 
-								bd=6, 
+								bd=6,
+								width=10,
 								relief=GROOVE)
 
 class ClasseLabel(Label):
@@ -60,7 +58,7 @@ class ClasseRadiobutton(Radiobutton):
 								activeforeground="black",  # cor do texto quando o mouse se posiciona em cima
 								activebackground="grey", # cor quando mouse se posiciona em cima
 								selectcolor="white", # cor de dentro do círculo
-								anchor=CENTER) # centralizar texto
+								anchor=W) # centralizar texto
 
 class ClasseToplevelPrincipal(Toplevel):
 	def __init__(self, titulo='', dados=None, value=0):
@@ -103,6 +101,20 @@ class ClasseToplevelPrincipal(Toplevel):
 				self.controleDate()
 			else:
 				self.controleRepeat()
+
+	def formatarCamposData(self, var):
+		texto = ''
+		for i in list(var.get()):
+			if str(i).isdigit() or str(i) == ',':
+				texto += i
+		var.set(texto)
+
+	def formatarCampos(self, var):
+		texto = ''
+		for i in list(var.get()):
+			if str(i).isdigit() or str(i) == '-':
+				texto += i
+		var.set(texto)
 
 	def nome(self):
 		frame = Frame(self)
@@ -228,6 +240,7 @@ class ClasseToplevelPrincipal(Toplevel):
 		if self.value == 1:
 			var.set(self.dados['count'])
 
+		var.trace_variable("w", lambda x, y, z: self.formatarCampos(var))
 		return entrada
 
 	def time(self):
@@ -242,6 +255,7 @@ class ClasseToplevelPrincipal(Toplevel):
 		if self.value == 1:
 			var.set(self.dados['time'])
 
+		var.trace_variable("w", lambda x, y, z: self.formatarCampos(var))
 		return entrada
 
 	def minute(self):
@@ -257,6 +271,9 @@ class ClasseToplevelPrincipal(Toplevel):
 		if self.value == 1:
 			var.set(','.join(self.dados['minute']))
 
+		var.trace_variable("w", lambda x, y, z: self.formatarCamposData(var))
+		ClasseLabel(frame, texto=" ex.: 12,13,14", w=15)
+
 		return entrada
 
 	def hour(self):
@@ -271,6 +288,9 @@ class ClasseToplevelPrincipal(Toplevel):
 		entrada.config(width=12, justify=CENTER, state=DISABLED, bg="#cccccc", fg="black")
 		if self.value == 1:
 			var.set(','.join(self.dados['hour']))
+
+		var.trace_variable("w", lambda x, y, z: self.formatarCamposData(var))
+		ClasseLabel(frame, texto=" ex.: 14,18,20", w=15)
 
 		return entrada
 
@@ -337,7 +357,7 @@ class ClasseToplevelPrincipal(Toplevel):
 		db = Database()
 		count = 0
 		if self.verificarDados(self.nome_entrada.get()):
-			self.dados['name'] = self._normalizeText(self.nome_entrada.get())
+			self.dados['name'] = self._normalizeText(self.nome_entrada.get()[:16])
 			count += 1
 
 		if self.verificarDados(self.notice_entrada.get()):
@@ -458,20 +478,19 @@ class ClasseFrame(Frame):
 
 	def lista(self):
 		db = Database()
+		dados = db.getDataServiceAll()
 
-		opcoes = [service['name'] for service in db.getDataServiceAll()]
 		scrollbar = Scrollbar(self)
-
 		lista_service = Listbox(self, relief=SUNKEN, font=FONTE_PADRAO_CONTEUDO, bg="#cccccc", fg="black")
 		scrollbar.config(command=lista_service.yview)
 		lista_service.config(yscrollcommand=scrollbar.set)
 		scrollbar.pack(side=RIGHT, fill=Y)
 		lista_service.pack(side=LEFT, expand=YES, fill=BOTH)
-		
-		pos = 0
-		for label in opcoes:
+
+		opcoes = [ service['name'] for service in dados ]
+
+		for pos, label in enumerate(sorted(opcoes)):
 			lista_service.insert(pos, label)
-			pos += 1
 
 		lista_service.bind('<Double-1>', lambda eventos: self.definirAcao(lista_service.get(lista_service.curselection())))
 
@@ -484,7 +503,7 @@ class ClasseFrame(Frame):
 	def updateService(self, service):
 		db = Database()
 		dados = db.getDataService(service)
-		ClasseToplevelPrincipal('Alterar Serviço', dados, value=1)
+		ClasseToplevelPrincipal('Update Service - Schedule Tasks', dados, value=1)
 		self.parent.destroy()
 
 	def deleteService(self, service):
@@ -505,6 +524,7 @@ class ClassToplevelList(Toplevel):
 
 		self.botoes()
 
+		self.resizable(width=False, height=False)
 		self.focus_set()
 		self.grab_set()
 		self.wait_window()
@@ -525,6 +545,7 @@ class ClasseToplevelView(Toplevel):
 	def __init__(self):
 		super(ClasseToplevelView, self).__init__()
 
+		self.resizable(width=False, height=False)
 		self.conteudo()
 
 		self.focus_set()
@@ -551,7 +572,7 @@ class ClasseToplevelView(Toplevel):
 			i += 1
 
 		rotulos = ['name', 'state', 'time', 'count', 'notice', 'mode', 'delete', 'command']
-		rotulos_dic = {'name':19, 'state':8, 'time':6, 'count':8, 'notice':10, 'mode':6, 'delete':10, 'command':35}
+		rotulos_dic = {'name':15, 'state':8, 'time':6, 'count':8, 'notice':10, 'mode':6, 'delete':10, 'command':36}
 		i = 1
 		cor = FUNDO_PRINCIPAL
 		for linha in new_list:
@@ -561,8 +582,15 @@ class ClasseToplevelView(Toplevel):
 				else:
 					cor = FUNDO_PRINCIPAL
 				if i == 1:
-					Label(self, text=item.upper(), font=FONTE_PADRAO_LABEL, width=rotulos_dic[item]).grid(row=i-1, column=c)
-				Label(self, text=linha[item], font=FONTE_PADRAO_CONTEUDO, width=rotulos_dic[item], bg=cor).grid(row=i, column=c)
+					Label(self, text=item.upper() if item!='count' else 'REPEAT', 
+								font=FONTE_PADRAO_LABEL, 
+								anchor=W if item=='name' or item=='command' else CENTER,
+								width=rotulos_dic[item]).grid(row=i-1, column=c)
+				Label(self, text=linha[item],
+							anchor=W if item=='name' or item=='command' else CENTER,
+							font=FONTE_PADRAO_CONTEUDO, 
+							width=rotulos_dic[item], 
+							bg=cor).grid(row=i, column=c)
 			i += 1
 
 		Button(self, text="Quit", command=self.destroy, 
@@ -585,6 +613,7 @@ class ClasseToplevelSetting(Toplevel):
 		self.state = self.conteudo()
 		self.botoes()
 
+		self.resizable(width=False, height=False)
 		self.focus_set()
 		self.grab_set()
 		self.wait_window()
@@ -616,12 +645,10 @@ class ClasseToplevelSetting(Toplevel):
 	def updateSetting(self):
 		db = Database()
 		self.dados['state'] = self.state.get()
-		if askquestion('Warning!', 'Do you want to delete this service?') == 'yes':
+		if askquestion('Warning!', 'Do you want to stop now?') == 'yes':
 			db.updateSetting(self.dados)
 		self.destroy()
 
-
-		
 
 class ClasseLabelPrincipal(Frame):
 	def __init__(self, parent=None):
@@ -648,13 +675,13 @@ class ClasseLabelPrincipal(Frame):
 
 	def newService(self):
 		dados = {"name": "", "notice": "", "command": "", "hour": "", "time": "", "count": "", "month": "0", "day": "0", "minute": "", "state": "", "delete": "", "mode": ""}
-		ClasseToplevelPrincipal('Criar Novo Serviço', dados)
+		ClasseToplevelPrincipal('Create Service - Schedule Tasks', dados)
 
 	def updateService(self):
-		ClassToplevelList(titulo='Atualizar Serviços')
+		ClassToplevelList(titulo='Update Service')
 
 	def deleteService(self):
-		ClassToplevelList(acao='delete', titulo="Apagar Serviços")
+		ClassToplevelList(acao='delete', titulo="Delete Service")
 
 	def listService(self):
 		ClasseToplevelView()
@@ -665,6 +692,7 @@ class ClasseLabelPrincipal(Frame):
 if __name__ == '__main__':
 	janela_principal = Tk()
 	janela_principal.title("Schedule Tasks")
+	janela_principal.resizable(width=False, height=False)
 
 	ClasseLabelPrincipal(janela_principal)
 

@@ -1,3 +1,5 @@
+#-*- coding: utf-8 -*-
+
 __author__ = 'alex.facanha18@gmail.com <asfmegas.github.io>'
 """
 Interface para gerênciar os arquivos
@@ -255,7 +257,7 @@ class Interface:
 		titles = []
 		for service in db.getDataServiceAll():
 			titles.append(service['name'])
-		return titles
+		return sorted(titles)
 
 	def _getString(label, flag):
 		""" Verificar se a string é válida, recebe uma flag que permite o retorno de vazio """

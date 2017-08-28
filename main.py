@@ -1,10 +1,12 @@
+#-*- coding: utf-8 -*-
+
 __author__ = 'alex.facanha18@gmail.com <asfmegas.github.io>'
 
 """
 Autor: Alexsandro Façanha
 Ano: 2017
 
-Script para agendar tarefas no Linux(Ubuntu e derivados)
+Programa que possibilita agendar tarefas no Linux(Ubuntu e derivados)
 
 Para fins pedagógicos este miniprograma possui o intuito de facilitar a realização de
 tarefas repetitivas através da criação de uma rotina para que uma determinada tarefa seja

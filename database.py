@@ -1,3 +1,5 @@
+#-*- coding: utf-8 -*-
+
 __author__ = 'alex.facanha18@gmail.com <asfmegas.github.io>'
 
 import json, os
